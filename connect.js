@@ -8,3 +8,4 @@ const connectToDatabase = async () => {
         console.log(error);
     }
 };
+export default connectToDatabase;
