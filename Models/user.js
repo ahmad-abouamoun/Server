@@ -23,7 +23,7 @@ const userSchema = new Schema({
     },
     filename: {
         type: String,
-        required: true,
+        // required: true,
     },
     diseases: {
         diabetes: {
