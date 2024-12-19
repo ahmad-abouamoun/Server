@@ -1,6 +1,8 @@
 import {User} from "../Models/user.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
+export const secretKey = "HALA MADRID";
 //gets the user type users
 export const getUsers = async (req, res) => {
     const users = await User.find({type: "user"});
