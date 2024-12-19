@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {createUser, getExperts, getUsers, Signin} from "../Controller/userController.js";
+import {banUser, createUser, getExperts, getUsers, Signin} from "../Controller/userController.js";
 import multer from "multer";
 
 const router = new Router();

@@ -68,3 +68,7 @@ export const createUser = async (req, res) => {
     await newUser.save();
     return res.status(200).json(newUser);
 };
+
+export const banUser = async (req, res) => {
+    res.json({message: "response recieved"});
+};
