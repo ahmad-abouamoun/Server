@@ -105,5 +105,10 @@ export const updaetUser = async (req, res) => {
         name,
         diseases,
     });
+    if (!updated) {
+        return res.status(404).send({
+            message: "User Not Found",
+        });
+    }
     return res.status(200).json({message: "updateUser api"});
 };
