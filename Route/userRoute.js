@@ -7,5 +7,6 @@ router.get("/", getUsers);
 router.get("/experts", getExperts);
 
 router.post("/signin", Signin);
+router.post("/", createUser);
 
 export default router;
