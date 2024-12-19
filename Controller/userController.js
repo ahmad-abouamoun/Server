@@ -100,6 +100,10 @@ export const banUser = async (req, res) => {
 
 export const updaetUser = async (req, res) => {
     const id = req.params.id;
-    console.log(id);
+    const {name, diseases} = req.body;
+    const updatedUser = User.findByIdAndUpdate(id, {
+        name,
+        diseases,
+    });
     return res.status(200).json({message: "updateUser api"});
 };
