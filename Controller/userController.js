@@ -70,5 +70,9 @@ export const createUser = async (req, res) => {
 };
 
 export const banUser = async (req, res) => {
+    const id = req.params.id;
+
+    const user = await User.findById(id);
+    console.log(user);
     res.json({message: "response recieved"});
 };
