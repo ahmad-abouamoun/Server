@@ -46,4 +46,7 @@ export const Signin = async (req, res) => {
 export const createUser = async (req, res) => {
     const {name, email, password, type, diseases} = req.body;
     console.log(req.body);
+    if (!name || !email || !password || !type || !diabetes || !hypertension || !highCholesterol) {
+        return res.status(400).json({message: "All fields are required."});
+    }
 };
