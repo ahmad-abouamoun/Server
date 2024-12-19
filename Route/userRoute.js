@@ -14,13 +14,15 @@ const storage = multer.diskStorage({
     },
 });
 const upload = multer({storage});
-
+//gets users with type:users
 router.get("/", getUsers);
+//gets users with type:coach,or nutritionist, or therapist
 router.get("/experts", getExperts);
-
+//allows the user to sigin to the website
 router.post("/signin", Signin);
+//allows user to create an account
 router.post("/", upload.single("file"), createUser);
-
+//allows the admin to ban a user
 router.patch("/:id", banUser);
 
 export default router;

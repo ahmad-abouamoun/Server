@@ -3,13 +3,14 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const secretKey = "HALA MADRID";
+
 //gets the user type users
 export const getUsers = async (req, res) => {
     const users = await User.find({type: "user"});
     return res.json(users);
 };
 
-//gets users with coach, nutritionist, and therapist type
+//gets users with coach,or nutritionist, or therapist type
 export const getExperts = async (req, res) => {
     const users = await User.find({$or: [{type: "coach"}, {type: "nutritionist"}, {type: "therapist"}]});
     return res.json(users);
@@ -69,6 +70,7 @@ export const createUser = async (req, res) => {
     return res.status(200).json(newUser);
 };
 
+//bans the user according to the id
 export const banUser = async (req, res) => {
     const id = req.params.id;
 
