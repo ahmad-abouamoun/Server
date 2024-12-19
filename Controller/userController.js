@@ -58,23 +58,29 @@ export const createUser = async (req, res) => {
     if (!name || !email || !password || !type || !diseases) {
         return res.status(400).json({message: "All fields are required."});
     }
-    const existingUser = await User.findOne({email});
-    if (existingUser) {
-        return res.status(400).json({message: "Email already registered."});
-    }
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({
-        name,
-        email,
-        password: hashedPassword,
-        banned: false,
-        type,
-        filename: req.file.filename,
-        diseases,
-    });
+    try {
+        const existingUser = await User.findOne({email});
+        if (existingUser) {
+            return res.status(400).json({message: "Email already registered."});
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword,
+            banned: false,
+            type,
+            filename: req.file.filename,
+            diseases,
+        });
 
-    await newUser.save();
-    return res.status(200).json(newUser);
+        await newUser.save();
+        return res.status(200).json(newUser);
+    } catch {
+        res.status(400).json({
+            message: "error occured with the Db.",
+        });
+    }
 };
 
 //bans the user according to the id
