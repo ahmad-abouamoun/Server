@@ -1,6 +1,7 @@
 import {Router} from "express";
 import {banUser, createUser, getExperts, getUsers, Signin} from "../Controller/userController.js";
 import multer from "multer";
+import {adminMiddleWare} from "../MiddleWare/adminMiddleWare.js";
 
 const router = new Router();
 const storage = multer.diskStorage({
@@ -23,6 +24,6 @@ router.post("/signin", Signin);
 //allows user to create an account
 router.post("/", upload.single("file"), createUser);
 //allows the admin to ban a user
-router.patch("/:id", banUser);
+router.patch("/:id", adminMiddleWare, banUser);
 
 export default router;
