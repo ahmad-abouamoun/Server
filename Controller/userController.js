@@ -46,6 +46,7 @@ export const Signin = async (req, res) => {
 export const createUser = async (req, res) => {
     const {name, email, password, type, diseases} = req.body;
     console.log(req.body);
+    console.log(req.file);
     if (!name || !email || !password || !type || !diseases) {
         return res.status(400).json({message: "All fields are required."});
     }
@@ -60,7 +61,7 @@ export const createUser = async (req, res) => {
         password: hashedPassword,
         banned: false,
         type,
-        //filename: req.file.filename,
+        filename: req.file.filename,
         diseases,
     });
 
