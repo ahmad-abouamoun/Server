@@ -6,8 +6,13 @@ export const getUsers = async (req, res) => {
     return res.json(users);
 };
 
-//gets users with coach and nutritionist and therapist type
+//gets users with coach, nutritionist, and therapist type
 export const getExperts = async (req, res) => {
     const users = await User.find({$or: [{type: "coach"}, {type: "nutritionist"}, {type: "therapist"}]});
     return res.json(users);
+};
+
+export const Signin = async (req, res) => {
+    const {email, password, type} = req.body;
+    console.log(req.body);
 };
