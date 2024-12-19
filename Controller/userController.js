@@ -1,4 +1,5 @@
 import {User} from "../Models/user.js";
+import bcrypt from "bcrypt";
 
 //gets the user type users
 export const getUsers = async (req, res) => {
@@ -20,5 +21,21 @@ export const Signin = async (req, res) => {
     if (!user) {
         return res.status(400).json({message: `user does not exist `});
     }
-    bcrypt.compare(password, user.password, (err, result) => {});
+    bcrypt.compare(password, user.password, (err, result) => {
+        if (err) {
+            console.error("Error comparing passwords:", err);
+            return;
+        }
+        if (result) {
+            const token = jwt.sign({id: user._id, type}, secretKey);
+            res.status(200).json({
+                message: "User indeed exists.",
+                token,
+            });
+        } else {
+            res.status(400).json({
+                message: "error with authenticating.",
+            });
+        }
+    });
 };
