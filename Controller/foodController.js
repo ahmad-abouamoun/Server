@@ -1,5 +1,7 @@
 export const createFood = async (req, res) => {
-    const {name, description, diseases} = req.body;
+    const {name, description} = req.body;
+    const diseases = JSON.parse(req.body.diseases);
+
     try {
         if (!name || !description || !diseases) {
             return res.status(400).json({message: `all fileds should be provided`});
