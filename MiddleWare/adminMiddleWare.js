@@ -1,4 +1,5 @@
 import {verify} from "jsonwebtoken";
+import {secretKey} from "../Controller/userController";
 
 const adminMiddleWare = (req, res, next) => {
     const {token} = req.body;
