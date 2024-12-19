@@ -15,6 +15,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage});
 
-router.post("/", createFood);
+router.post("/", upload.single("file"), createFood);
 
 export default router;

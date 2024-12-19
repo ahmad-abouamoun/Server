@@ -17,14 +17,19 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 //gets users with type:users
 router.get("/", getUsers);
+
 //gets users with type:coach,or nutritionist, or therapist
 router.get("/experts", getExperts);
+
 //allows the user to sigin to the website
 router.post("/signin", Signin);
+
 //allows user to create an account
 router.post("/", upload.single("file"), createUser);
+
 //allows only the admin to ban a user
 router.put("/:id", adminMiddleWare, banUser);
+
 //allows the user to update its data
 router.patch("/:id", updateUser);
 
