@@ -78,5 +78,7 @@ export const banUser = async (req, res) => {
             message: "User Not Found",
         });
     }
-    res.json({message: "response recieved"});
+    user.banned = true;
+    await user.save();
+    return res.json(user);
 };
