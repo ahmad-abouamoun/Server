@@ -73,6 +73,10 @@ export const banUser = async (req, res) => {
     const id = req.params.id;
 
     const user = await User.findById(id);
-    console.log(user);
+    if (!user) {
+        res.status(404).send({
+            message: "User Not Found",
+        });
+    }
     res.json({message: "response recieved"});
 };
