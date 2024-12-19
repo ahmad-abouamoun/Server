@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {createFood} from "../Controller/foodController";
+import {createFood} from "../Controller/foodController.js";
 
 const router = new Router();
 const storage = multer.diskStorage({
