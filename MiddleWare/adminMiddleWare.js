@@ -8,7 +8,12 @@ const adminMiddleWare = (req, res, next) => {
     }
     try {
         const decode = verify(token, secretKey);
-    } catch {
-        return res.status(400).json({message: "Invalid token"});
+        if ((decode.type = "admin")) {
+            next();
+        } else {
+            return res.status(400).json({message: "unAutharized"});
+        }
+    } catch (error) {
+        return res.status(400).json({message: "Invalid token ", error});
     }
 };
