@@ -23,7 +23,9 @@ router.get("/experts", getExperts);
 router.post("/signin", Signin);
 //allows user to create an account
 router.post("/", upload.single("file"), createUser);
-//allows the admin to ban a user
+//allows only the admin to ban a user
 router.put("/:id", adminMiddleWare, banUser);
+//allows the user to update its data
+router.put("/update:id", updateUser);
 
 export default router;
