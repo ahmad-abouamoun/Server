@@ -13,11 +13,12 @@ const storage = multer.diskStorage({
         cb(null, `${email}.${fileExtension}`);
     },
 });
+const upload = multer({storage});
 
 router.get("/", getUsers);
 router.get("/experts", getExperts);
 
 router.post("/signin", Signin);
-router.post("/", createUser);
+router.post("/", upload.single("file"), createUser);
 
 export default router;
