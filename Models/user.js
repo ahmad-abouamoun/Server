@@ -25,17 +25,19 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    diabetes: {
-        type: Boolean,
-        required: true,
-    },
-    highCholesterol: {
-        type: Boolean,
-        required: true,
-    },
-    hypertension: {
-        type: Boolean,
-        required: true,
+    diseases: {
+        diabetes: {
+            type: Boolean,
+            required: true,
+        },
+        highCholesterol: {
+            type: Boolean,
+            required: true,
+        },
+        hypertension: {
+            type: Boolean,
+            required: true,
+        },
     },
 });
 
