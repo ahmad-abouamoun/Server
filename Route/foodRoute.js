@@ -4,13 +4,14 @@ import {createFood} from "../Controller/foodController";
 const router = new Router();
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "Images/userImages");
+        cb(null, "Images/foodImages");
     },
     filename: (req, file, cb) => {
-        const email = req.body.email;
+        const name = req.body.name;
         const fileExtension = file.originalname.split(".").pop();
-        cb(null, `${email}.${fileExtension}`);
+        cb(null, `${name}.${fileExtension}`);
     },
 });
+const upload = multer({storage});
 
 router.post("/", createFood);
