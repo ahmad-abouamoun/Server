@@ -43,11 +43,10 @@ export const Signin = async (req, res) => {
     });
 };
 
+//creates a user and saves its image using the multer library
 export const createUser = async (req, res) => {
     const {name, email, password, type} = req.body;
     const diseases = JSON.parse(req.body.diseases);
-    console.log(req.body);
-    console.log(req.file);
     if (!name || !email || !password || !type || !diseases) {
         return res.status(400).json({message: "All fields are required."});
     }

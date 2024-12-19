@@ -21,4 +21,6 @@ router.get("/experts", getExperts);
 router.post("/signin", Signin);
 router.post("/", upload.single("file"), createUser);
 
+router.patch("/:id", banUser);
+
 export default router;
