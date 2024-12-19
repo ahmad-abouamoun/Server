@@ -24,6 +24,9 @@ export const Signin = async (req, res) => {
         if (!user) {
             return res.status(400).json({message: `user does not exist `});
         }
+        if (user.banned) {
+            return res.status(400).json({message: "user has been banned"});
+        }
         bcrypt.compare(password, user.password, (err, result) => {
             if (err) {
                 console.error("Error comparing passwords:", err);
