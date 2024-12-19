@@ -99,5 +99,7 @@ export const banUser = async (req, res) => {
 };
 
 export const updaetUser = async (req, res) => {
+    const id = req.params.id;
+    console.log(id);
     return res.status(200).json({message: "updateUser api"});
 };
