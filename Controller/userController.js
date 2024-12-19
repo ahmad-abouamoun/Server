@@ -45,4 +45,5 @@ export const Signin = async (req, res) => {
 
 export const createUser = async (req, res) => {
     const {name, email, password, type, diseases} = req.body;
+    console.log(req.body);
 };
