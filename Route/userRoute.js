@@ -24,6 +24,6 @@ router.post("/signin", Signin);
 //allows user to create an account
 router.post("/", upload.single("file"), createUser);
 //allows the admin to ban a user
-router.patch("/:id", adminMiddleWare, banUser);
+router.put("/:id", adminMiddleWare, banUser);
 
 export default router;
