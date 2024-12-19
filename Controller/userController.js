@@ -13,6 +13,7 @@ export const getExperts = async (req, res) => {
     return res.json(users);
 };
 
+//allows the user to signin to the website
 export const Signin = async (req, res) => {
     const {email, password, type} = req.body;
     console.log(req.body);
