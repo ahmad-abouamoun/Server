@@ -101,14 +101,22 @@ export const banUser = async (req, res) => {
 export const updaetUser = async (req, res) => {
     const id = req.params.id;
     const {name, diseases} = req.body;
-    const updatedUser = User.findByIdAndUpdate(id, {
-        name,
-        diseases,
-    });
-    if (!updated) {
-        return res.status(404).send({
-            message: "User Not Found",
+    try {
+        const updatedUser = User.findByIdAndUpdate(id, {
+            name,
+            diseases,
+        });
+        if (!updated) {
+            return res.status(404).send({
+                message: "User Not Found",
+            });
+        }
+        return res.status(200).json({message: "updateUser api"});
+    } catch (error) {
+        console.log(error.message);
+
+        return res.status(500).send({
+            message: "Something went wrong",
         });
     }
-    return res.status(200).json({message: "updateUser api"});
 };
