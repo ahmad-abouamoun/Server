@@ -97,3 +97,7 @@ export const banUser = async (req, res) => {
     await user.save();
     return res.json(user);
 };
+
+export const updaetUser = async (req, res) => {
+    return res.status(200).json({message: "updateUser api"});
+};

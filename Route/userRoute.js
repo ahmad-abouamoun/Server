@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {banUser, createUser, getExperts, getUsers, Signin} from "../Controller/userController.js";
+import {banUser, createUser, getExperts, getUsers, Signin, updaetUser} from "../Controller/userController.js";
 import multer from "multer";
 import {adminMiddleWare} from "../MiddleWare/adminMiddleWare.js";
 
@@ -26,6 +26,6 @@ router.post("/", upload.single("file"), createUser);
 //allows only the admin to ban a user
 router.put("/:id", adminMiddleWare, banUser);
 //allows the user to update its data
-router.put("/update:id", updateUser);
+router.patch("/:id", updaetUser);
 
 export default router;
