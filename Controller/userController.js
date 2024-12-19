@@ -44,7 +44,8 @@ export const Signin = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-    const {name, email, password, type, diseases} = req.body;
+    const {name, email, password, type} = req.body;
+    const diseases = JSON.parse(req.body.diseases);
     console.log(req.body);
     console.log(req.file);
     if (!name || !email || !password || !type || !diseases) {
