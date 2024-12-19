@@ -2,9 +2,7 @@ export const createFood = async (req, res) => {
     const {name, description, diseases} = req.body;
     try {
         if (!name || !description || !diseases) {
-            return res
-            .status(400)
-            .json({message: `${name} ${description} ${diabetes} ${hypertension} ${highCholesterol}`});
+            return res.status(400).json({message: `all fileds should be provided`});
         }
         const newFood = new Food({
             name,
