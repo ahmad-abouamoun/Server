@@ -115,7 +115,8 @@ export const updateUser = async (req, res) => {
                 message: "User Not Found",
             });
         }
-        return res.status(200).json({message: "something is wrong"});
+        await updatedUser.save();
+        return res.status(200).json({message: "user was updated"});
     } catch (error) {
         console.log(error.message);
 
