@@ -34,7 +34,9 @@ export const getMeetings = async (req, res) => {
         const meetings = await Meeting.find({user_id: decode.id});
         res.status(200).json({message: meetings});
     } else {
-        res.status(200).json({message: "not a user"});
+        const meetings = await Meeting.find({expert: decode.type});
+
+        res.status(200).json({message: meetings});
     }
     res.status(200).json({message: token});
 };
