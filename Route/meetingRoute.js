@@ -6,6 +6,7 @@ const router = new Router();
 //route used to create meetings
 router.post("/", createMeeting);
 
+//route used to get meetings for each user
 router.put("/", getMeetings);
 
 export default router;

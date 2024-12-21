@@ -24,6 +24,7 @@ export const createMeeting = async (req, res) => {
     }
 };
 
+//used to get meetings that are related to the user depending on the type
 export const getMeetings = async (req, res) => {
     const {token} = req.body;
     if (!token) {
