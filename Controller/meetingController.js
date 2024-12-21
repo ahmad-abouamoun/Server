@@ -25,9 +25,16 @@ export const createMeeting = async (req, res) => {
 };
 
 export const getMeetings = async (req, res) => {
-    const {token} = req.headers;
+    const {token} = req.body;
     if (!token) {
         return res.status(400).json({message: "token was not provided"});
+    }
+    const decode = jwt.verify(token, secretKey);
+    if (decode.type === "user") {
+        const meetings = await Meeting.find({user_id: decode.id});
+        res.status(200).json({message: meetings});
+    } else {
+        res.status(200).json({message: "not a user"});
     }
     res.status(200).json({message: token});
 };
