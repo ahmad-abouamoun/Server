@@ -1,3 +1,5 @@
+import {Food} from "../Models/food.js";
+
 export const createFood = async (req, res) => {
     const {name, description} = req.body;
     const diseases = JSON.parse(req.body.diseases);
@@ -21,4 +23,8 @@ export const createFood = async (req, res) => {
         console.error("Error creating food:", error.message);
         res.status(500).json({message: "Internal Server Error while creating the food"});
     }
+};
+
+export const getFoods = async (req, res) => {
+    res.status(200).json({message: "get foodds api"});
 };
