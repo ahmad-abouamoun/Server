@@ -3,6 +3,8 @@ import {createFood, getFoods} from "../Controller/foodController.js";
 import multer from "multer";
 
 const router = new Router();
+
+//used to save the images of the foods in the foodImages folder which is inside the Images folder
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "Images/foodImages");
@@ -15,7 +17,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage});
 
+//route for creating food
 router.post("/", upload.single("file"), createFood);
+
+//route for getting all foods
 router.get("/", getFoods);
 
 export default router;

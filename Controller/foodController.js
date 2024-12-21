@@ -1,5 +1,6 @@
 import {Food} from "../Models/food.js";
 
+//used to create food
 export const createFood = async (req, res) => {
     const {name, description} = req.body;
     const diseases = JSON.parse(req.body.diseases);
@@ -24,6 +25,7 @@ export const createFood = async (req, res) => {
     }
 };
 
+//used to get all food from the db
 export const getFoods = async (req, res) => {
     try {
         const foods = await Food.find();
