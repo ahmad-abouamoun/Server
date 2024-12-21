@@ -24,6 +24,6 @@ export const createMeeting = async (req, res) => {
     }
 };
 
-const getMeetings = async (req, res) => {
+export const getMeetings = async (req, res) => {
     res.status(200).json({message: "get meetings api"});
 };
