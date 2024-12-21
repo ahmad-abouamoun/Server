@@ -25,5 +25,9 @@ export const createMeeting = async (req, res) => {
 };
 
 export const getMeetings = async (req, res) => {
-    res.status(200).json({message: "get meetings api"});
+    const {token} = req.headers;
+    if (!token) {
+        return res.status(400).json({message: "token was not provided"});
+    }
+    res.status(200).json({message: token});
 };
