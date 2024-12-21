@@ -14,6 +14,6 @@ export const nutritionistMiddleWare = (req, res, next) => {
             return res.status(400).json({message: "unAutharized"});
         }
     } catch (error) {
-        return res.status(400).json({message: "Invalid token this is in the catch", error});
+        return res.status(400).json({message: "Invalid token ", error});
     }
 };

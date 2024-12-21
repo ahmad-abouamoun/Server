@@ -1,7 +1,25 @@
+import jwt from "jsonwebtoken";
+import {secretKey} from "./userController.js";
+import {Meeting} from "../Models/meeting.js";
+
 export const createMeeting = async (req, res) => {
     const {token, title, startDate, endDate, expert} = req.body;
     if (!token || !title || !startDate || !endDate || !expert) {
         return res.status(400).json({message: "all fields should be provided"});
     }
-    res.status(200).json({message: "CreateMeeting api"});
+    try {
+        const decode = jwt.verify(token, secretKey);
+        const meeting = await new Meeting({
+            title,
+            startDate,
+            endDate,
+            expert,
+            user_id: decode.id,
+        });
+        await meeting.save();
+        console.log(meeting);
+        return res.status(200).json({message: meeting});
+    } catch (error) {
+        return res.status(400).json({message: error.message});
+    }
 };
