@@ -20,13 +20,15 @@ export const createFood = async (req, res) => {
             newFood,
         });
     } catch (error) {
-        console.error("Error creating food:", error.message);
         res.status(500).json({message: "Internal Server Error while creating the food"});
     }
 };
 
 export const getFoods = async (req, res) => {
-    const foods = await Food.find();
-    console.log(foods);
-    res.status(200).json({message: "get foods api"});
+    try {
+        const foods = await Food.find();
+        res.status(200).json(foods);
+    } catch (error) {
+        res.status(500).json({message: "Internal Server Error while fetching the food"});
+    }
 };
