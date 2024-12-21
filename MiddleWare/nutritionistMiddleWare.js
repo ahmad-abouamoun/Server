@@ -6,11 +6,14 @@ export const nutritionistMiddleWare = (req, res, next) => {
     if (!token) {
         return res.status(400).json({message: "token was not provided"});
     }
-
-    const decode = jwt.verify(token, secretKey);
-    if (decode.type === "nutritionist") {
-        next();
-    } else {
-        return res.status(400).json({message: "unAutharized"});
+    try {
+        const decode = jwt.verify(token, secretKey);
+        if (decode.type === "nutritionist") {
+            next();
+        } else {
+            return res.status(400).json({message: "unAutharized"});
+        }
+    } catch (error) {
+        return res.status(400).json({message: "Invalid token this is in the catch", error});
     }
 };
