@@ -9,6 +9,10 @@ export const createMeeting = async (req, res) => {
         return res.status(400).json({message: "all fields should be provided"});
     }
     try {
+        const checkTime = Meeting.findOne({startDate, endDate, expert});
+        if (checkTime) {
+            return res.status(400).json({message: "slot already been taken"});
+        }
         const decode = jwt.verify(token, secretKey);
         const meeting = await new Meeting({
             title,
