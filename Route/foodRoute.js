@@ -1,6 +1,7 @@
 import {Router} from "express";
 import {createFood, getFoods} from "../Controller/foodController.js";
 import multer from "multer";
+import {nutritionistMiddleWare} from "../MiddleWare/nutritionistMiddleWare.js";
 
 const router = new Router();
 
@@ -18,7 +19,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 //route for creating food
-router.post("/", upload.single("file"), createFood);
+router.post("/", upload.single("file"), nutritionistMiddleWare, createFood);
 
 //route for getting all foods
 router.get("/", getFoods);
