@@ -26,5 +26,7 @@ export const createFood = async (req, res) => {
 };
 
 export const getFoods = async (req, res) => {
-    res.status(200).json({message: "get foodds api"});
+    const foods = await Food.find();
+    console.log(foods);
+    res.status(200).json({message: "get foods api"});
 };
