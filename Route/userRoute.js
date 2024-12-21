@@ -5,7 +5,7 @@ import {adminMiddleWare} from "../MiddleWare/adminMiddleWare.js";
 
 const router = new Router();
 
-//used to save the images of the foods in the userImages folder which is inside the Images folder
+//used to save the images of the users in the userImages folder which is inside the Images folder
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "Images/userImages");
