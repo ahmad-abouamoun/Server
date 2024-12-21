@@ -2,7 +2,7 @@ import express from "express";
 import connectToDatabase from "./connect.js";
 import userRoute from "./Route/userRoute.js";
 import foodRoute from "./Route/foodRoute.js";
-import meetingRoute from "./Route/foodRoute.js";
+import meetingRoute from "./Route/meetingRoute.js";
 
 const app = express();
 app.use(express.json());
