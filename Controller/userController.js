@@ -75,7 +75,7 @@ export const createUser = async (req, res) => {
         });
 
         await newUser.save();
-        return res.status(200).json(newUser);
+        return res.status(200).json();
     } catch {
         res.status(400).json({
             message: "error occured with the Db.",

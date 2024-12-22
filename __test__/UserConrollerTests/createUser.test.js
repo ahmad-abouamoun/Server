@@ -1,3 +1,4 @@
+import {json} from "express";
 import {createUser} from "../../Controller/userController";
 import {User} from "../../Models/user.js";
 import bcrypt from "bcryptjs";
@@ -29,7 +30,7 @@ describe("createUser", () => {
             password: "hashedPassword123",
             type: "coach",
             filename: "profile.png",
-            diseases: JSON.parse(req.body.diseases),
+            diseases: {diabetes: false, highCholesterol: false, hypertension: false},
         });
 
         await createUser(req, res);
@@ -39,8 +40,16 @@ describe("createUser", () => {
         expect(User.prototype.save).toHaveBeenCalled();
 
         expect(res.status).toHaveBeenCalledWith(200);
-        //ask taha about this why is it not working properly
         expect(res.json).toHaveBeenCalledWith();
     });
-    it("should give status code 400 if any field is missing", async () => {});
+
+    it("should give status code 400 if any field is missing", async () => {
+        const req = {body: {name: "", email: "", password: "", type: "", diseases: "{}"}};
+        const res = {status: jest.fn().mockReturnThis(), json: jest.fn()};
+
+        await createUser(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({message: "All fields are required."});
+    });
 });
