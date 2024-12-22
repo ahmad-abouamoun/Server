@@ -52,4 +52,17 @@ describe("createUser", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "All fields are required."});
     });
+    it("should return 400 if the email is already registered", async () => {
+        const req = {
+            body: {
+                name: "John Doe",
+                email: "john@example.com",
+                password: "password123",
+                type: "coach",
+                diseases: '{"diabetes": false, "highCholesterol": false, "hypertension": false}',
+            },
+            file: {filename: "profile.png"},
+        };
+        const res = {status: jest.fn().mockReturnThis(), json: jest.fn()};
+    });
 });
