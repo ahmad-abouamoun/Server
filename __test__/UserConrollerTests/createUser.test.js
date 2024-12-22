@@ -39,6 +39,8 @@ describe("createUser", () => {
         expect(User.prototype.save).toHaveBeenCalled();
 
         expect(res.status).toHaveBeenCalledWith(200);
+        //ask taha about this why is it not working properly
         expect(res.json).toHaveBeenCalledWith();
     });
+    it("should give status code 400 if any field is missing", async () => {});
 });
