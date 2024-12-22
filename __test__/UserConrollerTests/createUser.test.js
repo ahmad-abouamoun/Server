@@ -1,8 +1,44 @@
-import {createUser} from "../../Controller/userController.js";
+import {createUser} from "../../Controller/userController";
 import {User} from "../../Models/user.js";
-import fs from "fs";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
-describe("create Users", () => {
-    it("it should create a user", async () => {});
+jest.mock("../../Models/user");
+jest.mock("bcryptjs");
+
+describe("createUser", () => {
+    it("should create a new user and return 200 if no errors", async () => {
+        const req = {
+            body: {
+                name: "John Doe",
+                email: "john@example.com",
+                password: "password123",
+                type: "coach",
+                diseases: '{"diabetes": false, "highCholesterol": false, "hypertension": false}',
+            },
+            file: {filename: "profile.png"},
+        };
+        const res = {status: jest.fn().mockReturnThis(), json: jest.fn()};
+
+        bcrypt.hash.mockResolvedValue("hashedPassword123");
+
+        User.findOne.mockResolvedValue(null);
+
+        User.prototype.save.mockResolvedValue({
+            name: "John Doe",
+            email: "john@example.com",
+            password: "hashedPassword123",
+            type: "coach",
+            filename: "profile.png",
+            diseases: JSON.parse(req.body.diseases),
+        });
+
+        await createUser(req, res);
+
+        expect(User.findOne).toHaveBeenCalledWith({email: req.body.email});
+        expect(bcrypt.hash).toHaveBeenCalledWith(req.body.password, 10);
+        expect(User.prototype.save).toHaveBeenCalled();
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith();
+    });
 });
