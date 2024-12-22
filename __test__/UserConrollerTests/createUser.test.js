@@ -83,5 +83,14 @@ describe("createUser", () => {
             },
             file: {filename: "profile.png"},
         };
+        const res = {status: jest.fn().mockReturnThis(), json: jest.fn()};
+
+        User.findOne.mockResolvedValue(null);
+        bcrypt.hash.mockResolvedValue("hashedpassword123");
+        User.prototype.save.mockRejectedValue(new Error("Database Error"));
+
+        await createUser(req, res);
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({message: "error occured with the Db."});
     });
 });
