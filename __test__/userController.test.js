@@ -78,5 +78,27 @@ describe("getUsers", () => {
             },
         ];
         User.find.mockResolvedValue(mockUsers.filter((user) => user.type === "user"));
+        const expectedOutput = [
+            {
+                _id: "1",
+                name: "John Doe",
+                type: "user",
+                password: "hashedPassword123",
+                email: "johndoe@example.com",
+                banned: false,
+                filename: "profile1.png",
+                diseases: {
+                    diabetes: false,
+                    highCholesterol: false,
+                    hypertension: false,
+                },
+            },
+        ];
+        const req = {};
+        const res = {json: jest.fn()};
+
+        await getUsers(req, res);
+        expect(User.find).toHaveBeenCalledWith({type: "user"});
+        expect(res.json).toHaveBeenCalledWith(expectedOutput);
     });
 });
