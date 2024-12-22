@@ -1,7 +1,7 @@
-import {getUsers} from "../Controller/userController.js";
-import {User} from "../Models/user.js";
+import {getUsers} from "../../Controller/userController.js";
+import {User} from "../../Models/user.js";
 
-jest.mock("../Models/user.js");
+jest.mock("../../Models/user.js");
 
 describe("getUsers", () => {
     it('should return only users with type "user"', async () => {
