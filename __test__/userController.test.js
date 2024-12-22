@@ -35,5 +35,15 @@ describe("getUsers", () => {
                 },
             },
         ];
+
+        User.find.mockResolvedValue(mockUsers);
+
+        const req = {};
+        const res = {json: jest.fn()};
+
+        await getUsers(req, res);
+
+        expect(User.find).toHaveBeenCalledWith({type: "user"});
+        expect(res.json).toHaveBeenCalledWith(mockUsers);
     });
 });
