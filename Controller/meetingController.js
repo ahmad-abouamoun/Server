@@ -14,7 +14,7 @@ export const createMeeting = async (req, res) => {
             return res.status(400).json({message: "slot already been taken"});
         }
         const decode = jwt.verify(token, secretKey);
-        const meeting = await new Meeting({
+        const meeting = new Meeting({
             title,
             startDate,
             endDate,

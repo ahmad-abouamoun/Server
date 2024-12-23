@@ -51,4 +51,15 @@ describe("create meeting", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "slot already been taken"});
     });
+    it("should return status code 200 if a meeting is booked successfully with no errors", async () => {
+        const req = {
+            body: {
+                token: mockToken,
+                startDate: "2024-12-23T10:15:30.000Z",
+                endDate: "2024-12-23T10:16:30.000Z",
+                expert: "therapist",
+                title: "mental health",
+            },
+        };
+    });
 });
