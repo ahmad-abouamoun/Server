@@ -1,4 +1,3 @@
-import {json} from "express";
 import {createFood} from "../../Controller/foodController";
 import {Food} from "../../Models/food";
 
@@ -21,5 +20,7 @@ describe("create food", () => {
                 filename: "strawberry.png",
             },
         };
+        Food.prototype.save.mockRejectedValue(new Error("Database error"));
+        await createFood(req, res);
     });
 });
