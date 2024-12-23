@@ -47,20 +47,6 @@ describe("banUser", () => {
         expect(res.json).toHaveBeenCalledWith(mockUser);
     });
     it("should return status code 404 is user not found", async () => {
-        const mockUser = {
-            _id: "1",
-            name: "John Doe",
-            type: "user",
-            password: "hashedPassword123",
-            email: "johndoe@example.com",
-            banned: false,
-            filename: "profile1.png",
-            diseases: {
-                diabetes: false,
-                highCholesterol: false,
-                hypertension: false,
-            },
-        };
         User.findById.mockResolvedValue(null);
 
         await banUser(req, res);
