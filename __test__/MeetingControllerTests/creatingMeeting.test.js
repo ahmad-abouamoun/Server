@@ -22,5 +22,7 @@ describe("create meeting", () => {
                 title: "mental health",
             },
         };
+        Meeting.prototype.save.mockRejectedValue(new Error("Db error occured"));
+        await createMeeting(req, res);
     });
 });
