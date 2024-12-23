@@ -54,5 +54,4 @@ describe("banUser", () => {
         expect(res.status).toHaveBeenCalledWith(404);
         expect(res.json).toHaveBeenCalledWith({message: "User Not Found"});
     });
-    it("should return status code 404 is user not found", async () => {});
 });
