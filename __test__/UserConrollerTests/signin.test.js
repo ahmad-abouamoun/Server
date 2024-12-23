@@ -44,4 +44,5 @@ describe("signin", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "user has been banned"});
     });
+    it("should return status code 400 if incorrect password was given", async () => {});
 });
