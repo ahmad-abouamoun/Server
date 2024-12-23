@@ -22,4 +22,5 @@ describe("signin", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "user does not exist "});
     });
+    it("should return status code 500 if error in db occured", async () => {});
 });
