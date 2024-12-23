@@ -29,7 +29,6 @@ export const Signin = async (req, res) => {
         }
         bcrypt.compare(password, user.password, (err, result) => {
             if (err) {
-                console.error("Error comparing passwords:", err);
                 return;
             }
             if (result) {
