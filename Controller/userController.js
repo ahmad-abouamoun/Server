@@ -110,16 +110,14 @@ export const updateUser = async (req, res) => {
             {new: true}
         );
         if (!updatedUser) {
-            return res.status(404).send({
+            return res.status(404).json({
                 message: "User Not Found",
             });
         }
         await updatedUser.save();
         return res.status(200).json({message: "user was updated"});
     } catch (error) {
-        console.log(error.message);
-
-        return res.status(500).send({
+        return res.status(500).json({
             message: "Something went wrong",
         });
     }
