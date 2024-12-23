@@ -1,9 +1,11 @@
+import jwt from "jsonwebtoken";
 import {Signin} from "../../Controller/userController";
 import {User} from "../../Models/user.js";
 import bcrypt from "bcryptjs";
 
 jest.mock("../../Models/user");
 jest.mock("bcryptjs");
+jest.mock("jsonwebtoken");
 
 describe("signin", () => {
     const req = {
@@ -70,5 +72,7 @@ describe("signin", () => {
         bcrypt.compare.mockImplementation((password, hashedpassword, callback) => {
             callback(null, false);
         });
+        const mockToken = "mocktoken";
+        jwt.sign.mockReturnValue(mockToken);
     });
 });
