@@ -25,5 +25,14 @@ describe("create food", () => {
         expect(res.json).toHaveBeenCalledWith({message: "Internal Server Error while creating the food"});
         expect(res.status).toHaveBeenCalledWith(500);
     });
-    it("should return status code 201 if no error occured ", async () => {});
+    it("should return status code 201 if no error occured ", async () => {
+        const req = {
+            body: {
+                name: "strawberry",
+                description: "very delicious",
+                diseases: '{"diabetes": false, "highCholesterol": false, "hypertension": false}',
+            },
+            file: {filename: "strawberry.png"},
+        };
+    });
 });
