@@ -1,4 +1,3 @@
-import {json} from "express";
 import {createUser} from "../../Controller/userController";
 import {User} from "../../Models/user.js";
 import bcrypt from "bcryptjs";
