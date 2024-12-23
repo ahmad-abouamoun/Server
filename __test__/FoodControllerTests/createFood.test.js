@@ -12,4 +12,5 @@ describe("create food", () => {
         expect(res.json).toHaveBeenCalledWith({message: `all fileds should be provided`});
         expect(res.status).toHaveBeenCalledWith(400);
     });
+    it("should return status code 500 if error occured in the Db", async () => {});
 });
