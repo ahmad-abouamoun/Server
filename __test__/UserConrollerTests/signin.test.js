@@ -58,4 +58,5 @@ describe("signin", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "error with authenticating."});
     });
+    it("should return status code 200 if no errors occured", async () => {});
 });
