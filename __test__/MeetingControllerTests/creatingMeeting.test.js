@@ -29,5 +29,22 @@ describe("create meeting", () => {
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({message: error.message});
     });
-    it("should return status code 400 if a meeting is already booked at this time", async () => {});
+    it("should return status code 400 if a meeting is already booked at this time", async () => {
+        const req = {
+            body: {
+                token: mockToken,
+                startDate: "2024-12-23T10:15:30.000Z",
+                endDate: "2024-12-23T10:16:30.000Z",
+                expert: "therapist",
+                title: "mental health",
+            },
+        };
+        const mockData = {
+            token: mockToken,
+            startDate: "2024-12-23T10:15:30.000Z",
+            endDate: "2024-12-23T10:16:30.000Z",
+            expert: "therapist",
+            title: "weekly appointment",
+        };
+    });
 });
