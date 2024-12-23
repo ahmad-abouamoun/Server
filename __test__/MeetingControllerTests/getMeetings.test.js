@@ -26,4 +26,8 @@ describe("get meetings", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "an error has occured"});
     });
+    it("should return 400 if error in db occured", async () => {
+        const req = {body: {token: mockToken}};
+        Meeting.find.mockRejectedValue(new Error("error occured in Db"));
+    });
 });
