@@ -22,5 +22,11 @@ describe("signin", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "user does not exist "});
     });
-    it("should return status code 500 if error in db occured", async () => {});
+    it("should return status code 500 if error in db occured", async () => {
+        User.findOne.mockRejectedValue(null);
+        await Signin(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.json).toHaveBeenCalledWith({message: "error occured with the Db."});
+    });
 });
