@@ -27,4 +27,8 @@ export const getPrograms = async (req, res) => {
     }
 };
 
-export const updateProgram = async (req, res) => {};
+export const updateProgram = async (req, res) => {
+    const {id} = req.params;
+    console.log(id);
+    return res.status(200).json({message: "updateProgram api"});
+};

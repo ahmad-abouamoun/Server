@@ -21,5 +21,5 @@ router.post("/", upload.single("file"), createProgram);
 
 router.get("/", getPrograms);
 
-router.patch("/", updateProgram);
+router.patch("/:id", updateProgram);
 export default router;
