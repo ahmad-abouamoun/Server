@@ -47,4 +47,5 @@ describe("update User", () => {
         expect(res.status).toHaveBeenCalledWith(404);
         expect(res.json).toHaveBeenCalledWith({message: "User Not Found"});
     });
+    it("should return status code 404 if user not found", async () => {});
 });
