@@ -15,5 +15,12 @@ describe("get foods", () => {
 
         expect(res.status).toHaveBeenCalledWith(500);
     });
-    it("should return status code 200 if no error occured", async () => {});
+    it("should return status code 200 if no error occured", async () => {
+        const mockData = {
+            name: "strawberry",
+            description: "very delicious",
+            diseases: {diabetes: false, highCholesterol: false, hypertension: false},
+            filename: "strawberry.png",
+        };
+    });
 });
