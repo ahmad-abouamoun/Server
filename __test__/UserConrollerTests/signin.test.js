@@ -29,4 +29,5 @@ describe("signin", () => {
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({message: "error occured with the Db."});
     });
+    it("should return status code 400 if user is banned", async () => {});
 });
