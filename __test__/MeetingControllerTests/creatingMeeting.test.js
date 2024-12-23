@@ -8,5 +8,8 @@ describe("create meeting", () => {
     const res = {status: jest.fn().mockReturnThis(), json: jest.fn()};
     it("should return status code 400 if not all fields were provided", async () => {
         const req = {body: {token: "", startDate: "", endDate: "", expert: "", title: ""}};
+        await createMeeting(req, res);
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({message: "all fields should be provided"});
     });
 });
