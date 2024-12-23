@@ -19,6 +19,10 @@ export const createProgram = async (req, res) => {
     }
 };
 export const getPrograms = async (req, res) => {
-    const programs = await Program.find();
-    return res.status(200).json(programs);
+    try {
+        const programs = await Program.find();
+        return res.status(200).json(programs);
+    } catch (error) {
+        return res.status(500).json({message: "error occured in Db"});
+    }
 };
