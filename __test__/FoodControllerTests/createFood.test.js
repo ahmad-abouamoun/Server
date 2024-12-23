@@ -15,12 +15,14 @@ describe("create food", () => {
         const req = {
             body: {
                 name: "strawberry",
-                desription: "very delicious",
+                description: "very delicious",
                 diseases: '{"diabetes": false, "highCholesterol": false, "hypertension": false}',
-                filename: "strawberry.png",
             },
+            file: {filename: "strawberry.png"},
         };
         Food.prototype.save.mockRejectedValue(new Error("Database error"));
         await createFood(req, res);
+        expect(res.json).toHaveBeenCalledWith({message: "Internal Server Error while creating the food"});
+        expect(res.status).toHaveBeenCalledWith(500);
     });
 });
