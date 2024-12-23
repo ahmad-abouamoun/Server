@@ -14,4 +14,7 @@ describe("get meetings", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "token was not provided"});
     });
+    it("should return 400 if an error occuerd", async () => {
+        const req = {body: {token: mockToken}};
+    });
 });
