@@ -22,7 +22,7 @@ export const createMeeting = async (req, res) => {
             user_id: decode.id,
         });
         await meeting.save();
-        return res.status(200).json({message: meeting});
+        return res.status(200).json(meeting);
     } catch (error) {
         return res.status(500).json({message: error.message});
     }
@@ -42,7 +42,7 @@ export const getMeetings = async (req, res) => {
         } else {
             const meetings = await Meeting.find({expert: decode.type});
 
-            return res.status(200).json({message: meetings});
+            return res.status(200).json(meetings);
         }
     } catch (error) {
         res.status(400).json({message: "an error has occured"});

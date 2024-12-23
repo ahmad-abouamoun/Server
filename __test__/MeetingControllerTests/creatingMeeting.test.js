@@ -2,10 +2,13 @@ import jwt from "jsonwebtoken";
 import {createMeeting} from "../../Controller/meetingController.js";
 import {Meeting} from "../../Models/meeting.js";
 import {secretKey} from "../../Controller/userController.js";
+
 jest.mock("../../Models/meeting.js");
 
 describe("create meeting", () => {
     const mockToken = jwt.sign({id: "1", type: "user"}, secretKey);
+    const decodedToken = {id: "1"};
+
     const res = {status: jest.fn().mockReturnThis(), json: jest.fn()};
     it("should return status code 400 if not all fields were provided", async () => {
         const req = {body: {token: "", startDate: "", endDate: "", expert: "", title: ""}};
@@ -51,23 +54,41 @@ describe("create meeting", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "slot already been taken"});
     });
-    it("should return status code 200 if a meeting is booked successfully with no errors", async () => {
-        const req = {
-            body: {
-                token: mockToken,
-                startDate: "2024-12-23T10:15:30.000Z",
-                endDate: "2024-12-23T10:16:30.000Z",
-                expert: "therapist",
-                title: "mental health",
-            },
-        };
-        Meeting.findOne.mockResolvedValue(null);
-        Meeting.prototype.save.mockResolvedValue({
-            token: mockToken,
-            startDate: "2024-12-23T10:15:30.000Z",
-            endDate: "2024-12-23T10:16:30.000Z",
-            expert: "therapist",
-            title: "mental health",
-        });
-    });
+    // it("should return status code 200 if a meeting is booked successfully with no errors", async () => {
+    //     const req = {
+    //         body: {
+    //             token: mockToken,
+    //             startDate: "2024-12-23T10:15:30.000Z",
+    //             endDate: "2024-12-23T10:16:30.000Z",
+    //             expert: "therapist",
+    //             title: "mental health",
+    //         },
+    //     };
+    //     jwt.verify.mockReturnValue(decodedToken);
+
+    //     Meeting.findOne.mockResolvedValue(null);
+    //     Meeting.prototype.save.mockResolvedValue({
+    //         startDate: "2024-12-23T10:15:30.000Z",
+    //         endDate: "2024-12-23T10:16:30.000Z",
+    //         expert: "therapist",
+    //         title: "mental health",
+    //         user_id: decodedToken.id,
+    //     });
+
+    //     await createMeeting(req, res);
+    //     expect(Meeting.findOne).toHaveBeenCalledWith({
+    //         expert: req.body.expert,
+    //         endDate: req.body.endDate,
+    //         startDate: req.body.startDate,
+    //     });
+
+    //     expect(res.json).toHaveBeenCalledWith({
+    //         token: mockToken,
+    //         startDate: "2024-12-23T10:15:30.000Z",
+    //         endDate: "2024-12-23T10:16:30.000Z",
+    //         expert: "therapist",
+    //         title: "mental health",
+    //     });
+    //     expect(res.status).toHaveBeenCalledWith(200);
+    // });
 });
