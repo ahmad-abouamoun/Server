@@ -46,5 +46,7 @@ describe("create meeting", () => {
             expert: "therapist",
             title: "weekly appointment",
         };
+        Meeting.findOne.mockResolvedValue(mockData);
+        await createMeeting(req, res);
     });
 });
