@@ -46,4 +46,26 @@ describe("banUser", () => {
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith(mockUser);
     });
+    it("should return status code 404 is user not found", async () => {
+        const mockUser = {
+            _id: "1",
+            name: "John Doe",
+            type: "user",
+            password: "hashedPassword123",
+            email: "johndoe@example.com",
+            banned: false,
+            filename: "profile1.png",
+            diseases: {
+                diabetes: false,
+                highCholesterol: false,
+                hypertension: false,
+            },
+        };
+        User.findById.mockResolvedValue(null);
+
+        await banUser(req, res);
+        expect(User.findById).toHaveBeenCalledWith(1);
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalledWith({message: "User Not Found"});
+    });
 });
