@@ -4,17 +4,17 @@ import {User} from "../../Models/user.js";
 jest.mock("../../Models/user.js");
 
 describe("update User", () => {
+    const req = {
+        body: {
+            name: "John",
+
+            diseases: '{"diabetes": true, "highCholesterol": true, "hypertension": true}',
+        },
+        params: {id: 1},
+    };
+    const res = {status: jest.fn().mockReturnThis(), json: jest.fn()};
+
     it("it should return status code 200 if user updated with no errors", async () => {
-        const req = {
-            body: {
-                name: "John",
-
-                diseases: '{"diabetes": true, "highCholesterol": true, "hypertension": true}',
-            },
-            params: {id: 1},
-        };
-        const res = {status: jest.fn().mockReturnThis(), json: jest.fn()};
-
         const mockUser = {
             _id: "1",
             name: "John Doe",
@@ -41,7 +41,10 @@ describe("update User", () => {
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({message: "user was updated"});
     });
-    it("should return status code 404 if user not found", () => {
+    it("should return status code 404 if user not found", async () => {
         User.findByIdAndUpdate.mockResolvedValue(null);
+        await updateUser(req, res);
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalledWith({message: "User Not Found"});
     });
 });
