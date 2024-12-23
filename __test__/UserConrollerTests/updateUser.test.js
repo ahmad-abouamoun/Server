@@ -41,4 +41,7 @@ describe("update User", () => {
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({message: "user was updated"});
     });
+    it("should return status code 404 if user not found", () => {
+        User.findByIdAndUpdate.mockResolvedValue(null);
+    });
 });
