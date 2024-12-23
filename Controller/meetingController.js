@@ -38,7 +38,7 @@ export const getMeetings = async (req, res) => {
         const decode = jwt.verify(token, secretKey);
         if (decode.type === "user") {
             const meetings = await Meeting.find({user_id: decode.id});
-            return res.status(200).json({message: meetings});
+            return res.status(200).json(meetings);
         } else {
             const meetings = await Meeting.find({expert: decode.type});
 
