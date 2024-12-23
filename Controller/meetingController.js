@@ -34,14 +34,17 @@ export const getMeetings = async (req, res) => {
     if (!token) {
         return res.status(400).json({message: "token was not provided"});
     }
-    const decode = jwt.verify(token, secretKey);
-    if (decode.type === "user") {
-        const meetings = await Meeting.find({user_id: decode.id});
-        res.status(200).json({message: meetings});
-    } else {
-        const meetings = await Meeting.find({expert: decode.type});
+    try {
+        const decode = jwt.verify(token, secretKey);
+        if (decode.type === "user") {
+            const meetings = await Meeting.find({user_id: decode.id});
+            return res.status(200).json({message: meetings});
+        } else {
+            const meetings = await Meeting.find({expert: decode.type});
 
-        res.status(200).json({message: meetings});
+            return res.status(200).json({message: meetings});
+        }
+    } catch (error) {
+        res.status(400).json({message: "an error has occured"});
     }
-    res.status(200).json({message: token});
 };
