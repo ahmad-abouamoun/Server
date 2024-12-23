@@ -47,5 +47,10 @@ describe("update User", () => {
         expect(res.status).toHaveBeenCalledWith(404);
         expect(res.json).toHaveBeenCalledWith({message: "User Not Found"});
     });
-    it("should return status code 404 if user not found", async () => {});
+    it("should return status code 500 if error in db occured", async () => {
+        User.findByIdAndUpdate.mockRejectedValue(null);
+        await updateUser(req, res);
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.json).toHaveBeenCalledWith({message: "Something went wrong"});
+    });
 });
