@@ -34,11 +34,15 @@ describe("create food", () => {
             },
             file: {filename: "strawberry.png"},
         };
-        Food.prototype.save.mockResolvedValue({
+        const mockData = {
             name: "strawberry",
             description: "very delicious",
             diseases: {diabetes: false, highCholesterol: false, hypertension: false},
             filename: "strawberry.png",
-        });
+        };
+        Food.prototype.save.mockResolvedValue(mockData);
+        await createFood(req, res);
+        expect(res.json).toHaveBeenCalledWith({message: "food was created"});
+        expect(res.status).toHaveBeenCalledWith(201);
     });
 });

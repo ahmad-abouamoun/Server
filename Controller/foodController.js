@@ -17,9 +17,7 @@ export const createFood = async (req, res) => {
         });
 
         await newFood.save();
-        res.status(201).json({
-            newFood,
-        });
+        res.status(201).json({message: "food was created"});
     } catch (error) {
         res.status(500).json({message: "Internal Server Error while creating the food"});
     }
