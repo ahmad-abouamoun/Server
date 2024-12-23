@@ -61,5 +61,13 @@ describe("create meeting", () => {
                 title: "mental health",
             },
         };
+        Meeting.findOne.mockResolvedValue(null);
+        Meeting.prototype.save.mockResolvedValue({
+            token: mockToken,
+            startDate: "2024-12-23T10:15:30.000Z",
+            endDate: "2024-12-23T10:16:30.000Z",
+            expert: "therapist",
+            title: "mental health",
+        });
     });
 });
