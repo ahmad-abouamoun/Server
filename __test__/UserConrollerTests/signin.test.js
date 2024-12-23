@@ -29,5 +29,19 @@ describe("signin", () => {
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({message: "error occured with the Db."});
     });
-    it("should return status code 400 if user is banned", async () => {});
+    it("should return status code 400 if user is banned", async () => {
+        const mockUser = {
+            _id: "1",
+            email: "john@example.com",
+            password: "hashedPassword123",
+            banned: true,
+        };
+        User.findOne.mockResolvedValue(mockUser);
+        bcrypt.compare.mockImplementation((password, hashedpassword, callback) => {
+            callback(null, true);
+        });
+        await Signin(req, res);
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({message: "user has been banned"});
+    });
 });
