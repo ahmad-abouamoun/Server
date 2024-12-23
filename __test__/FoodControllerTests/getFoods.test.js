@@ -24,5 +24,6 @@ describe("get foods", () => {
         };
         Food.find.mockResolvedValue(mockData);
         await getFoods(req, res);
+        expect(res.json).toHaveBeenCalledWith(mockData);
     });
 });
