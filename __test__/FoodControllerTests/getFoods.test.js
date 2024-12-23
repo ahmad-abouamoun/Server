@@ -15,4 +15,5 @@ describe("get foods", () => {
 
         expect(res.status).toHaveBeenCalledWith(500);
     });
+    it("should return status code 200 if no error occured", async () => {});
 });
