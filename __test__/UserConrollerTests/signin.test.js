@@ -70,9 +70,19 @@ describe("signin", () => {
         };
         User.findOne.mockResolvedValue(mockuser);
         bcrypt.compare.mockImplementation((password, hashedpassword, callback) => {
-            callback(null, false);
+            callback(null, true);
         });
         const mockToken = "mocktoken";
         jwt.sign.mockReturnValue(mockToken);
+
+        await Signin(req, res);
+
+        expect(User.findOne).toHaveBeenCalledWith({email: "john@example.com"});
+        expect(bcrypt.compare).toHaveBeenCalledWith(req.body.password, mockuser.password, expect.any(Function));
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({
+            message: "User indeed exists.",
+            token: mockToken,
+        });
     });
 });
