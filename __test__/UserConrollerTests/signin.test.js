@@ -66,5 +66,9 @@ describe("signin", () => {
             banned: false,
             type: "user",
         };
+        User.findOne.mockResolvedValue(mockuser);
+        bcrypt.compare.mockImplementation((password, hashedpassword, callback) => {
+            callback(null, false);
+        });
     });
 });
