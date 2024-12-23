@@ -48,5 +48,7 @@ describe("create meeting", () => {
         };
         Meeting.findOne.mockResolvedValue(mockData);
         await createMeeting(req, res);
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({message: "slot already been taken"});
     });
 });
