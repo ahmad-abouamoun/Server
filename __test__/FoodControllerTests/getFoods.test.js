@@ -7,5 +7,7 @@ jest.mock("../../Models/food");
 describe("get foods", () => {
     const req = {};
     const res = {status: jest.fn().mockReturnThis, json: jest.fn()};
-    it("should return status code 500 if an error in the db occured", async () => {});
+    it("should return status code 500 if an error in the db occured", async () => {
+        Food.find.mockedRejectedValue(new Error("error in the Db"));
+    });
 });
