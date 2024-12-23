@@ -22,5 +22,7 @@ describe("get foods", () => {
             diseases: {diabetes: false, highCholesterol: false, hypertension: false},
             filename: "strawberry.png",
         };
+        Food.find.mockResolvedValue(mockData);
+        await getFoods(req, res);
     });
 });
