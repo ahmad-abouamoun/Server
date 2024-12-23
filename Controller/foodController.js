@@ -13,7 +13,7 @@ export const createFood = async (req, res) => {
             name,
             description,
             diseases,
-            filename: req.file.filename,
+            filename: req.file.programImage,
         });
 
         await newFood.save();

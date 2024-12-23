@@ -1,7 +1,6 @@
 import {Router} from "express";
 import {createProgram} from "../Controller/programsController.js";
 import multer from "multer";
-import multer from "multer";
 //
 const router = new Router();
 
@@ -15,6 +14,7 @@ const storage = multer.diskStorage({
         cb(null, `${name}.${fileExtension}`);
     },
 });
+
 const upload = multer({storage});
 
 router.post("/", upload.single("file"), createProgram);
