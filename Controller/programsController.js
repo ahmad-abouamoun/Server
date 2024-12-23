@@ -18,3 +18,4 @@ export const createProgram = async (req, res) => {
         return res.status(400).json({message: error});
     }
 };
+export const getPrograms = async (req, res) => {};
