@@ -65,9 +65,9 @@ describe("createUser", () => {
         const res = {status: jest.fn().mockReturnThis(), json: jest.fn()};
         User.findOne.mockResolvedValue({email: "john@example.com"});
         await createUser(req, res);
+        expect(User.findOne).toHaveBeenCalledWith({email: "john@example.com"});
 
         expect(res.status).toHaveBeenCalledWith(400);
-        expect(User.findOne).toHaveBeenCalledWith({email: "john@example.com"});
 
         expect(res.json).toHaveBeenCalledWith({message: "Email already registered."});
     });

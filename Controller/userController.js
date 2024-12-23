@@ -44,7 +44,7 @@ export const Signin = async (req, res) => {
             }
         });
     } catch {
-        res.status(400).json({
+        res.status(500).json({
             message: "error occured with the Db.",
         });
     }
