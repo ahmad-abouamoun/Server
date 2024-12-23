@@ -18,4 +18,7 @@ export const createProgram = async (req, res) => {
         return res.status(400).json({message: error});
     }
 };
-export const getPrograms = async (req, res) => {};
+export const getPrograms = async (req, res) => {
+    const programs = await Program.find();
+    return res.status(200).json(programs);
+};
