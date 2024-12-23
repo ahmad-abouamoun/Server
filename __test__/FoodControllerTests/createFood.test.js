@@ -34,5 +34,11 @@ describe("create food", () => {
             },
             file: {filename: "strawberry.png"},
         };
+        Food.prototype.save.mockResolvedValue({
+            name: "strawberry",
+            description: "very delicious",
+            diseases: {diabetes: false, highCholesterol: false, hypertension: false},
+            filename: "strawberry.png",
+        });
     });
 });
