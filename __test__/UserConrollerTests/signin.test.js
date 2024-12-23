@@ -44,5 +44,18 @@ describe("signin", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "user has been banned"});
     });
-    it("should return status code 400 if incorrect password was given", async () => {});
+    it("should return status code 400 if incorrect password was given", async () => {
+        const mockUser = {
+            _id: "1",
+            email: "john@example.com",
+            password: "hashedPassword123",
+        };
+        User.findOne.mockResolvedValue(mockUser);
+        bcrypt.compare.mockImplementation((password, hashedpassword, callback) => {
+            callback(null, false);
+        });
+        await Signin(req, res);
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({message: "error with authenticating."});
+    });
 });
