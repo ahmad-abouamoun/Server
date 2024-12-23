@@ -34,4 +34,22 @@ describe("get meetings", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "an error has occured"});
     });
+    it("should return status code 200 if meetings where fetched successfully with no errors", async () => {
+        const mockData = [
+            {
+                startDate: "2024-12-23T10:15:30.000Z",
+                endDate: "2024-12-23T10:16:30.000Z",
+                expert: "therapist",
+                title: "mental health",
+                user_id: "1",
+            },
+            {
+                startDate: "2024-12-23T10:16:30.000Z",
+                endDate: "2024-12-23T10:17:30.000Z",
+                expert: "therapist",
+                title: "mental support",
+                user_id: "1",
+            },
+        ];
+    });
 });
