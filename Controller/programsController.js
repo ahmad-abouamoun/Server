@@ -26,3 +26,5 @@ export const getPrograms = async (req, res) => {
         return res.status(500).json({message: "error occured in Db"});
     }
 };
+
+export const updateProgram = async (req, res) => {};

@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {createProgram, getPrograms} from "../Controller/programsController.js";
+import {createProgram, getPrograms, updateProgram} from "../Controller/programsController.js";
 import multer from "multer";
 //
 const router = new Router();
@@ -20,4 +20,6 @@ const upload = multer({storage});
 router.post("/", upload.single("file"), createProgram);
 
 router.get("/", getPrograms);
+
+router.patch("/", updateProgram);
 export default router;
