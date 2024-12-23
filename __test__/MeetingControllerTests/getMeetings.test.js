@@ -34,7 +34,9 @@ describe("get meetings", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "an error has occured"});
     });
-    it("should return status code 200 if meetings where fetched successfully with no errors", async () => {
+    it("should return status code 200 if meetings were fetched successfully with no errors", async () => {
+        const req = {body: {token: mockToken}};
+
         const mockData = [
             {
                 startDate: "2024-12-23T10:15:30.000Z",
@@ -51,5 +53,15 @@ describe("get meetings", () => {
                 user_id: "1",
             },
         ];
+
+        jwt.verify = jest.fn().mockReturnValue({id: "1", type: "user"});
+
+        Meeting.find.mockResolvedValue(mockData);
+
+        await getMeetings(req, res);
+
+        expect(res.json).toHaveBeenCalledWith(mockData);
+
+        expect(res.status).toHaveBeenCalledWith(200);
     });
 });
