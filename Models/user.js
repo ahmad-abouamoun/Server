@@ -39,6 +39,14 @@ const userSchema = new Schema({
             required: true,
         },
     },
+    favFoods: {
+        type: [String],
+        default: [],
+    },
+    favPrograms: {
+        type: [String],
+        default: [],
+    },
 });
 
 export const User = model("User", userSchema);
