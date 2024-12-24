@@ -136,4 +136,10 @@ export const addFavProgram = async (req, res) => {
             message: "User Not Found",
         });
     }
+    if (user.favPrograms.includes(programId)) {
+        return res.status(400).json({message: "program already favorited"});
+    }
+    user.favPrograms.push(new mongoose.Types.ObjectId(programId));
+    await user.save();
+    return res.status(200).json({message: "user favProgram was updated"});
 };
