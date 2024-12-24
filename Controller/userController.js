@@ -176,4 +176,9 @@ export const removeFavProgram = async (req, res) => {
     }
 };
 
-export const getFavPrograms = async (req, res) => {};
+export const getFavPrograms = async (req, res) => {
+    const {id} = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({message: "id is not of type obj id"});
+    }
+};
