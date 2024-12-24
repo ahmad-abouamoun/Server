@@ -1,5 +1,13 @@
 import {Router} from "express";
-import {banUser, createUser, getExperts, getUsers, Signin, updateUser} from "../Controller/userController.js";
+import {
+    addFavProgram,
+    banUser,
+    createUser,
+    getExperts,
+    getUsers,
+    Signin,
+    updateUser,
+} from "../Controller/userController.js";
 import multer from "multer";
 import {adminMiddleWare} from "../MiddleWare/adminMiddleWare.js";
 
@@ -35,4 +43,5 @@ router.put("/:id", adminMiddleWare, banUser);
 //allows the user to update its data
 router.patch("/:id", updateUser);
 
+router.post("/favProrgram/:id", addFavProgram);
 export default router;

@@ -96,6 +96,7 @@ export const banUser = async (req, res) => {
     return res.status(200).json(user);
 };
 
+//updates the user's info
 export const updateUser = async (req, res) => {
     const id = req.params.id;
     const {name, diseases} = req.body;
@@ -121,3 +122,5 @@ export const updateUser = async (req, res) => {
         });
     }
 };
+
+export const addFavProgram = async (req, res) => {};
