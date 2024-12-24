@@ -28,7 +28,26 @@ export const getPrograms = async (req, res) => {
 };
 
 export const updateProgram = async (req, res) => {
-    const {id} = req.params;
-    console.log(id);
-    return res.status(200).json({message: "updateProgram api"});
+    const id = req.params.id;
+    const {training, link} = req.body;
+
+    try {
+        const updatedProgram = await Program.findByIdAndUpdate(
+            id,
+            {
+                $push: {
+                    training: {$each: training},
+                    link: {$each: link},
+                },
+            },
+            {new: true}
+        );
+        if (!updatedProgram) {
+            return res.status(400).json({message: "program does not exist"});
+        }
+        await updatedProgram.save();
+        return res.status(200).json(updatedProgram);
+    } catch (error) {
+        return res.status(400).json({message: "an error occured"});
+    }
 };
