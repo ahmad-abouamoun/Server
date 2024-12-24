@@ -144,4 +144,10 @@ export const addFavProgram = async (req, res) => {
     return res.status(200).json({message: "user favProgram was updated"});
 };
 
-export const removeFavProgram = async (req, res) => {};
+export const removeFavProgram = async (req, res) => {
+    const {id} = req.params;
+    const {programId} = req.body;
+    if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(programId)) {
+        return res.status(400).json({message: "id or program id is not of type obj id"});
+    }
+};
