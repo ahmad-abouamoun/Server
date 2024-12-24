@@ -1,6 +1,7 @@
 import {User} from "../Models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import mongoose, {Mongoose} from "mongoose";
 
 export const secretKey = "HALA MADRID";
 
@@ -123,4 +124,10 @@ export const updateUser = async (req, res) => {
     }
 };
 
-export const addFavProgram = async (req, res) => {};
+export const addFavProgram = async (req, res) => {
+    const {id} = req.params;
+    const {programId} = req.body;
+    if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(programId)) {
+        return res.status(400).json({message: "id or program id is not of type onj id"});
+    }
+};
