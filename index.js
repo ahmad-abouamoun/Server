@@ -3,8 +3,12 @@ import connectToDatabase from "./connect.js";
 import userRoute from "./Route/userRoute.js";
 import foodRoute from "./Route/foodRoute.js";
 import meetingRoute from "./Route/meetingRoute.js";
+import cors from "cors";
 import programsRoute from "./Route/programsRoute.js";
 const app = express();
+app.use(cors());
+
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 app.use("/users", userRoute);

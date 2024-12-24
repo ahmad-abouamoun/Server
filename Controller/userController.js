@@ -59,6 +59,7 @@ export const createUser = async (req, res) => {
         return res.status(400).json({message: "All fields are required."});
     }
     try {
+        console.log(req.body);
         const existingUser = await User.findOne({email});
         if (existingUser) {
             return res.status(400).json({message: "Email already registered."});

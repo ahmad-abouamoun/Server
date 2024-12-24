@@ -14,16 +14,15 @@ import multer from "multer";
 import {adminMiddleWare} from "../MiddleWare/adminMiddleWare.js";
 
 const router = new Router();
-
 //used to save the images of the users in the userImages folder which is inside the Images folder
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "Images/userImages");
     },
     filename: (req, file, cb) => {
-        const email = req.body.email;
+        const timestamp = Date.now();
         const fileExtension = file.originalname.split(".").pop();
-        cb(null, `${email}.${fileExtension}`);
+        cb(null, `${timestamp}.${fileExtension}`);
     },
 });
 const upload = multer({storage});
