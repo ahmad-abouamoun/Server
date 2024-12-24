@@ -156,4 +156,10 @@ export const removeFavProgram = async (req, res) => {
             message: "User Not Found",
         });
     }
+    if (!user.favPrograms.some((fav) => fav.toString === programId)) {
+        return res.status(400).json({message: "program does not exist"});
+    }
+    user.favPrograms = user.favPrograms.filter((fav) => fav.toString !== programId);
+    await user.save();
+    return res.status(200).json({message: "user favProgram was updated"});
 };
