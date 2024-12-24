@@ -128,6 +128,12 @@ export const addFavProgram = async (req, res) => {
     const {id} = req.params;
     const {programId} = req.body;
     if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(programId)) {
-        return res.status(400).json({message: "id or program id is not of type onj id"});
+        return res.status(400).json({message: "id or program id is not of type obj id"});
+    }
+    const user = await User.findById(id);
+    if (!user) {
+        return res.status(404).json({
+            message: "User Not Found",
+        });
     }
 };
