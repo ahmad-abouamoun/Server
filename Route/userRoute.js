@@ -5,6 +5,7 @@ import {
     createUser,
     getExperts,
     getUsers,
+    removeFavProgram,
     Signin,
     updateUser,
 } from "../Controller/userController.js";
@@ -44,4 +45,7 @@ router.put("/:id", adminMiddleWare, banUser);
 router.patch("/:id", updateUser);
 
 router.post("/favProrgram/:id", addFavProgram);
+
+router.delete("/favProrgram/:id", removeFavProgram);
+
 export default router;

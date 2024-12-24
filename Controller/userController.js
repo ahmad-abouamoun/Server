@@ -143,3 +143,5 @@ export const addFavProgram = async (req, res) => {
     await user.save();
     return res.status(200).json({message: "user favProgram was updated"});
 };
+
+export const removeFavProgram = async (req, res) => {};
