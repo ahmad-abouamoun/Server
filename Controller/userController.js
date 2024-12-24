@@ -175,3 +175,5 @@ export const removeFavProgram = async (req, res) => {
         });
     }
 };
+
+export const getFavPrograms = async (req, res) => {};

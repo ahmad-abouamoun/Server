@@ -4,6 +4,7 @@ import {
     banUser,
     createUser,
     getExperts,
+    getFavPrograms,
     getUsers,
     removeFavProgram,
     Signin,
@@ -48,4 +49,5 @@ router.post("/favProrgram/:id", addFavProgram);
 
 router.delete("/favProrgram/:id", removeFavProgram);
 
+router.get("/favProrgram/:id", getFavPrograms);
 export default router;
