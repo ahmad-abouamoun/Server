@@ -181,11 +181,17 @@ export const getFavPrograms = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({message: "id is not of type obj id"});
     }
-    const user = await User.findById(id).populate("favPrograms");
-    if (!user) {
-        return res.status(404).json({
-            message: "User Not Found",
+    try {
+        const user = await User.findById(id).populate("favPrograms");
+        if (!user) {
+            return res.status(404).json({
+                message: "User Not Found",
+            });
+        }
+        return res.status(200).json(user.favPrograms);
+    } catch (error) {
+        return res.status(500).json({
+            message: "Something went wrong",
         });
     }
-    return res.status(200).json(user.favPrograms);
 };
