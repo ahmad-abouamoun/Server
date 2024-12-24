@@ -181,4 +181,10 @@ export const getFavPrograms = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({message: "id is not of type obj id"});
     }
+    const user = await User.findById(id);
+    if (!user) {
+        return res.status(404).json({
+            message: "User Not Found",
+        });
+    }
 };
