@@ -150,16 +150,22 @@ export const removeFavProgram = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(programId)) {
         return res.status(400).json({message: "id or program id is not of type obj id"});
     }
-    const user = await User.findById(id);
-    if (!user) {
-        return res.status(404).json({
-            message: "User Not Found",
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({
+                message: "User Not Found",
+            });
+        }
+        if (!user.favPrograms.some((fav) => fav.toString() === programId)) {
+            return res.status(400).json({message: "program does not exist"});
+        }
+        user.favPrograms = user.favPrograms.filter((fav) => fav.toString() !== programId);
+        await user.save();
+        return res.status(200).json({message: "user favProgram was updated"});
+    } catch (error) {
+        return res.status(500).json({
+            message: "Something went wrong",
         });
     }
-    if (!user.favPrograms.some((fav) => fav.toString() === programId)) {
-        return res.status(400).json({message: "program does not exist"});
-    }
-    user.favPrograms = user.favPrograms.filter((fav) => fav.toString() !== programId);
-    await user.save();
-    return res.status(200).json({message: "user favProgram was updated"});
 };
