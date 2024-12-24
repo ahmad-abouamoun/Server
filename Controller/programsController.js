@@ -1,5 +1,6 @@
 import {Program} from "../Models/programs.js";
 
+//api that creates a program
 export const createProgram = async (req, res) => {
     const {name, training, link} = req.body;
     if (!name) {
@@ -18,6 +19,8 @@ export const createProgram = async (req, res) => {
         return res.status(400).json({message: error});
     }
 };
+
+//api that gets all the training programs
 export const getPrograms = async (req, res) => {
     try {
         const programs = await Program.find();
@@ -27,6 +30,7 @@ export const getPrograms = async (req, res) => {
     }
 };
 
+//api that adds trainings and links to an existing program
 export const updateProgram = async (req, res) => {
     const id = req.params.id;
     const {training, link} = req.body;
