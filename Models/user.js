@@ -1,4 +1,6 @@
 import {Schema, model} from "mongoose";
+import {Program} from "./programs.js";
+import {Food} from "./food.js";
 
 const userSchema = new Schema({
     name: {
@@ -39,14 +41,18 @@ const userSchema = new Schema({
             required: true,
         },
     },
-    favFoods: {
-        type: [String],
-        default: [],
-    },
-    favPrograms: {
-        type: [String],
-        default: [],
-    },
+    favFoods: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Food",
+        },
+    ],
+    favPrograms: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Program",
+        },
+    ],
 });
 
 export const User = model("User", userSchema);
