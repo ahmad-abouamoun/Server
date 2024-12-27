@@ -7,13 +7,15 @@ export const secretKey = "HALA MADRID";
 
 //gets the user type users
 export const getUsers = async (req, res) => {
-    const users = await User.find({type: "user"});
+    const users = await User.find({type: "user"}).select("name email banned");
     return res.json(users);
 };
 
 //gets users with coach,or nutritionist, or therapist type
 export const getExperts = async (req, res) => {
-    const users = await User.find({$or: [{type: "coach"}, {type: "nutritionist"}, {type: "therapist"}]});
+    const users = await User.find({$or: [{type: "coach"}, {type: "nutritionist"}, {type: "therapist"}]}).select(
+        "name email banned type"
+    );
     return res.json(users);
 };
 
@@ -54,12 +56,12 @@ export const Signin = async (req, res) => {
 //creates a user and saves its image using the multer library
 export const createUser = async (req, res) => {
     const {name, email, password, type} = req.body;
+
     const diseases = JSON.parse(req.body.diseases);
     if (!name || !email || !password || !type || !diseases) {
         return res.status(400).json({message: "All fields are required."});
     }
     try {
-        console.log(req.body);
         const existingUser = await User.findOne({email});
         if (existingUser) {
             return res.status(400).json({message: "Email already registered."});
