@@ -97,6 +97,7 @@ export const banUser = async (req, res) => {
         });
     }
     user.banned = true;
+    await user.save();
     return res.status(200).json(user);
 };
 
