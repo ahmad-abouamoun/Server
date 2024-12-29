@@ -103,8 +103,13 @@ export const banUser = async (req, res) => {
 
 //updates the user's info
 export const updateUser = async (req, res) => {
-    const id = req.params.id;
-    const {name, diseases} = req.body;
+    const {name, diseases, token} = req.body;
+    try {
+        const decode = jwt.verify(token, secretKey);
+        id = decode.id;
+    } catch (error) {
+        return res.status(401).json({message: "Invalid or expired token"});
+    }
     try {
         const updatedUser = await User.findByIdAndUpdate(
             id,
@@ -123,7 +128,7 @@ export const updateUser = async (req, res) => {
         return res.status(200).json({message: "user was updated"});
     } catch (error) {
         return res.status(500).json({
-            message: "Something went wrong",
+            message: error.message,
         });
     }
 };

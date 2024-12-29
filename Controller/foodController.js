@@ -13,13 +13,13 @@ export const createFood = async (req, res) => {
             name,
             description,
             diseases,
-            filename: req.file.programImage,
+            filename: req.file.filename,
         });
 
         await newFood.save();
         res.status(201).json({message: "food was created"});
     } catch (error) {
-        res.status(500).json({message: "Internal Server Error while creating the food"});
+        res.status(500).json({message: error.message});
     }
 };
 
