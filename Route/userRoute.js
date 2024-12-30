@@ -45,7 +45,7 @@ router.post("/", upload.single("file"), createUser);
 router.put("/:id", adminMiddleWare, banUser);
 
 //allows the user to update its data
-router.patch("/:id", updateUser);
+router.patch("/", updateUser);
 
 router.post("/favProrgram/:id", addFavProgram);
 

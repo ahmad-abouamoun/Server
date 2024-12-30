@@ -104,12 +104,8 @@ export const banUser = async (req, res) => {
 //updates the user's info
 export const updateUser = async (req, res) => {
     const {name, diseases, token} = req.body;
-    try {
-        const decode = jwt.verify(token, secretKey);
-        id = decode.id;
-    } catch (error) {
-        return res.status(401).json({message: "Invalid or expired token"});
-    }
+    const decode = jwt.verify(token, secretKey);
+    const id = decode.id;
     try {
         const updatedUser = await User.findByIdAndUpdate(
             id,
@@ -128,14 +124,16 @@ export const updateUser = async (req, res) => {
         return res.status(200).json({message: "user was updated"});
     } catch (error) {
         return res.status(500).json({
-            message: error.message,
+            message: "error.message",
         });
     }
 };
 
 export const addFavProgram = async (req, res) => {
-    const {id} = req.params;
-    const {programId} = req.body;
+    const {programId, token} = req.body;
+    const decode = jwt.verify(token, secretKey);
+    const id = decode.id;
+
     if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(programId)) {
         return res.status(400).json({message: "id or program id is not of type obj id"});
     }
@@ -160,8 +158,9 @@ export const addFavProgram = async (req, res) => {
 };
 
 export const removeFavProgram = async (req, res) => {
-    const {id} = req.params;
-    const {programId} = req.body;
+    const {programId, token} = req.body;
+    const decode = jwt.verify(token, secretKey);
+    const id = decode.id;
     if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(programId)) {
         return res.status(400).json({message: "id or program id is not of type obj id"});
     }
@@ -186,7 +185,9 @@ export const removeFavProgram = async (req, res) => {
 };
 
 export const getFavPrograms = async (req, res) => {
-    const {id} = req.params;
+    const {token} = req.body;
+    const decode = jwt.verify(token, secretKey);
+    const id = decode.id;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({message: "id is not of type obj id"});
     }
@@ -206,8 +207,9 @@ export const getFavPrograms = async (req, res) => {
 };
 
 export const addFavFood = async (req, res) => {
-    const {id} = req.params;
-    const {FoodId} = req.body;
+    const {FoodId, token} = req.body;
+    const decode = jwt.verify(token, secretKey);
+    const id = decode.id;
     if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(FoodId)) {
         return res.status(400).json({message: "id or food id is not of type obj id"});
     }
@@ -232,8 +234,9 @@ export const addFavFood = async (req, res) => {
 };
 
 export const removeFavFood = async (req, res) => {
-    const {id} = req.params;
-    const {FoodId} = req.body;
+    const {FoodId, token} = req.body;
+    const decode = jwt.verify(token, secretKey);
+    const id = decode.id;
     if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(FoodId)) {
         return res.status(400).json({message: "id or Food id is not of type obj id"});
     }
@@ -258,7 +261,9 @@ export const removeFavFood = async (req, res) => {
 };
 
 export const getFavFoods = async (req, res) => {
-    const {id} = req.params;
+    const {token} = req.body;
+    const decode = jwt.verify(token, secretKey);
+    const id = decode.id;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({message: "id is not of type obj id"});
     }
