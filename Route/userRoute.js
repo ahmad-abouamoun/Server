@@ -1,5 +1,6 @@
 import {Router} from "express";
 import {
+    addFavFood,
     addFavProgram,
     banUser,
     createUser,
@@ -49,4 +50,7 @@ router.post("/favProrgram/:id", addFavProgram);
 router.delete("/favProrgram/:id", removeFavProgram);
 
 router.get("/favProrgram/:id", getFavPrograms);
+
+router.post("/favFood/:id", addFavFood);
+
 export default router;

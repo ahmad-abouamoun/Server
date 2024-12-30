@@ -204,3 +204,29 @@ export const getFavPrograms = async (req, res) => {
         });
     }
 };
+
+export const addFavFood = async (req, res) => {
+    const {id} = req.params;
+    const {FoodId} = req.body;
+    if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(FoodId)) {
+        return res.status(400).json({message: "id or program id is not of type obj id"});
+    }
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({
+                message: "User Not Found",
+            });
+        }
+        if (user.favFoods.includes(FoodId)) {
+            return res.status(400).json({message: "food already favorited"});
+        }
+        user.favFoods.push(new mongoose.Types.ObjectId(FoodId));
+        await user.save();
+        return res.status(200).json({message: "user favProgram was updated"});
+    } catch (error) {
+        return res.status(500).json({
+            message: "Something went wrong",
+        });
+    }
+};
