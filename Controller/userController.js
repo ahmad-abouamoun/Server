@@ -222,6 +222,15 @@ export const addFavFood = async (req, res) => {
             return res.status(400).json({message: "food already favorited"});
         }
         user.favFoods.push(new mongoose.Types.ObjectId(FoodId));
+        const updateFood = await User.findByIdAndUpdate(
+            FoodId,
+            {
+                isBookmarked: true,
+            },
+            {new: true}
+        );
+
+        await updateFood.save();
         await user.save();
         return res.status(200).json({message: "user favFood was updated"});
     } catch (error) {
