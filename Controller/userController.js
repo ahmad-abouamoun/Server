@@ -2,6 +2,7 @@ import {User} from "../Models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import mongoose, {Mongoose} from "mongoose";
+import {Food} from "../Models/food.js";
 
 export const secretKey = "HALA MADRID";
 
@@ -222,7 +223,7 @@ export const addFavFood = async (req, res) => {
             return res.status(400).json({message: "food already favorited"});
         }
         user.favFoods.push(new mongoose.Types.ObjectId(FoodId));
-        const updateFood = await User.findByIdAndUpdate(
+        const updateFood = await Food.findByIdAndUpdate(
             FoodId,
             {
                 isBookmarked: true,
@@ -235,7 +236,7 @@ export const addFavFood = async (req, res) => {
         return res.status(200).json({message: "user favFood was updated"});
     } catch (error) {
         return res.status(500).json({
-            message: "Something went wrong",
+            message: error.message,
         });
     }
 };
@@ -257,6 +258,15 @@ export const removeFavFood = async (req, res) => {
             return res.status(400).json({message: "Food does not exist"});
         }
         user.favFoods = user.favFoods.filter((fav) => fav.toString() !== FoodId);
+        const updateFood = await Food.findByIdAndUpdate(
+            FoodId,
+            {
+                isBookmarked: false,
+            },
+            {new: true}
+        );
+
+        await updateFood.save();
         await user.save();
         return res.status(200).json({message: "user favFood was updated"});
     } catch (error) {
