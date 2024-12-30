@@ -256,3 +256,23 @@ export const removeFavFood = async (req, res) => {
         });
     }
 };
+
+export const getFavFoods = async (req, res) => {
+    const {id} = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({message: "id is not of type obj id"});
+    }
+    try {
+        const user = await User.findById(id).populate("favFoods");
+        if (!user) {
+            return res.status(404).json({
+                message: "User Not Found",
+            });
+        }
+        return res.status(200).json(user.favFoods);
+    } catch (error) {
+        return res.status(500).json({
+            message: "Something went wrong",
+        });
+    }
+};

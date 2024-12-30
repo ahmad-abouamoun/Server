@@ -5,6 +5,7 @@ import {
     banUser,
     createUser,
     getExperts,
+    getFavFoods,
     getFavPrograms,
     getUsers,
     removeFavFood,
@@ -55,5 +56,7 @@ router.get("/favProrgram/:id", getFavPrograms);
 router.post("/favFood/:id", addFavFood);
 
 router.delete("/favFood/:id", removeFavFood);
+
+router.get("/favFood/:id", getFavFoods);
 
 export default router;
