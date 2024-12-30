@@ -187,6 +187,15 @@ export const removeFavProgram = async (req, res) => {
             return res.status(400).json({message: "program does not exist"});
         }
         user.favPrograms = user.favPrograms.filter((fav) => fav.toString() !== programId);
+        const updateProgram = await Program.findByIdAndUpdate(
+            programId,
+            {
+                isBookmarked: false,
+            },
+            {new: true}
+        );
+
+        await updateProgram.save();
         await user.save();
         return res.status(200).json({message: "user favProgram was updated"});
     } catch (error) {
