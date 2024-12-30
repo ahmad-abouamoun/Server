@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import mongoose, {Mongoose} from "mongoose";
 import {Food} from "../Models/food.js";
+import {Program} from "../Models/programs.js";
 
 export const secretKey = "HALA MADRID";
 
@@ -151,6 +152,15 @@ export const addFavProgram = async (req, res) => {
             return res.status(400).json({message: "program already favorited"});
         }
         user.favPrograms.push(new mongoose.Types.ObjectId(programId));
+        const updateProgram = await Program.findByIdAndUpdate(
+            programId,
+            {
+                isBookmarked: true,
+            },
+            {new: true}
+        );
+
+        await updateProgram.save();
         await user.save();
         return res.status(200).json({message: "user favProgram was updated"});
     } catch (error) {
