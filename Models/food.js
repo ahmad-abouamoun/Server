@@ -19,6 +19,9 @@ const foodSchema = new Schema({
             required: true,
         },
     },
+    isBookmarked: {
+        type: Boolean,
+    },
     description: {
         type: String,
         required: true,
