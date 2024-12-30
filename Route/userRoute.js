@@ -7,6 +7,7 @@ import {
     getExperts,
     getFavPrograms,
     getUsers,
+    removeFavFood,
     removeFavProgram,
     Signin,
     updateUser,
@@ -52,5 +53,7 @@ router.delete("/favProrgram/:id", removeFavProgram);
 router.get("/favProrgram/:id", getFavPrograms);
 
 router.post("/favFood/:id", addFavFood);
+
+router.delete("/favFood/:id", removeFavFood);
 
 export default router;
