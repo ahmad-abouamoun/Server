@@ -5,13 +5,13 @@ import {Meeting} from "../Models/meeting.js";
 //used to create meetings for users
 export const createMeeting = async (req, res) => {
     const {token, title, startDate, endDate, expert, room} = req.body;
-    if (!token || !title || !startDate || !endDate || !||!room) {
+    if (!token || !title || !startDate || !endDate || !room) {
         return res.status(400).json({message: "all fields should be provided"});
     }
     try {
-        const checkTime = Meeting.findOne({startDate, endDate, expert});
+        const checkTime = await Meeting.findOne({startDate, endDate, expert});
         if (checkTime) {
-            return res.status(400).json({message: "slot already been taken"});
+            return res.status(400).json({message: "slot already been taken", status: "failed"});
         }
         const decode = jwt.verify(token, secretKey);
         const meeting = new Meeting({
