@@ -47,11 +47,11 @@ router.put("/:id", adminMiddleWare, banUser);
 //allows the user to update its data
 router.patch("/", updateUser);
 
-router.post("/favProrgram", addFavProgram);
+router.post("/favProgram", addFavProgram);
 
-router.delete("/favProrgram", removeFavProgram);
+router.delete("/favProgram", removeFavProgram);
 
-router.get("/favProrgram", getFavPrograms);
+router.get("/favProgram", getFavPrograms);
 
 router.post("/favFood", addFavFood);
 

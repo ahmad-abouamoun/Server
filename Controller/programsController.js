@@ -2,21 +2,21 @@ import {Program} from "../Models/programs.js";
 
 //api that creates a program
 export const createProgram = async (req, res) => {
-    const {name, training, link} = req.body;
+    const {name} = req.body;
     if (!name) {
         return res.status(400).json({message: "name should be provided"});
     }
     try {
         const program = new Program({
             name,
-            training: training || [],
-            link: link || [],
+            training: [],
+            link: [],
             filename: req.file.filename,
         });
         await program.save();
         return res.status(200).json(program);
     } catch (error) {
-        return res.status(400).json({message: error});
+        return res.status(400).json({message: error.message});
     }
 };
 

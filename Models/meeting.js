@@ -21,6 +21,10 @@ const meetingSchema = new Schema({
         type: String,
         required: true,
     },
+    room: {
+        type: String,
+        required: true,
+    },
 });
 
 export const Meeting = model("Meeting", meetingSchema);
