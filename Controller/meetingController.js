@@ -4,8 +4,8 @@ import {Meeting} from "../Models/meeting.js";
 
 //used to create meetings for users
 export const createMeeting = async (req, res) => {
-    const {token, title, startDate, endDate, expert} = req.body;
-    if (!token || !title || !startDate || !endDate || !expert) {
+    const {token, title, startDate, endDate, expert, room} = req.body;
+    if (!token || !title || !startDate || !endDate || !||!room) {
         return res.status(400).json({message: "all fields should be provided"});
     }
     try {
@@ -20,6 +20,7 @@ export const createMeeting = async (req, res) => {
             endDate,
             expert,
             user_id: decode.id,
+            room,
         });
         await meeting.save();
         return res.status(200).json(meeting);
