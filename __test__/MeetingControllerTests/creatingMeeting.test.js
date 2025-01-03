@@ -14,7 +14,7 @@ describe("create meeting", () => {
         const req = {body: {token: "", startDate: "", endDate: "", expert: "", title: ""}};
         await createMeeting(req, res);
         expect(res.status).toHaveBeenCalledWith(400);
-        expect(res.json).toHaveBeenCalledWith({message: "all fields should be provided"});
+        expect(res.json).toHaveBeenCalledWith({message: "all fields should be provided", status: "failed"});
     });
     it("should return status code 500 if an error occured in the Db", async () => {
         const req = {
@@ -24,13 +24,14 @@ describe("create meeting", () => {
                 endDate: "2024-12-23T10:16:30.000Z",
                 expert: "therapist",
                 title: "mental health",
+                room: "101",
             },
         };
         Meeting.prototype.save.mockRejectedValue(new Error("Db error occured"));
         await createMeeting(req, res);
         const error = new Error("Db error occured");
         expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalledWith({message: error.message});
+        expect(res.json).toHaveBeenCalledWith({message: error.message, status: "failed"});
     });
     it("should return status code 400 if a meeting is already booked at this time", async () => {
         const req = {
@@ -40,6 +41,7 @@ describe("create meeting", () => {
                 endDate: "2024-12-23T10:16:30.000Z",
                 expert: "therapist",
                 title: "mental health",
+                room: "101",
             },
         };
         const mockData = {
@@ -48,11 +50,12 @@ describe("create meeting", () => {
             endDate: "2024-12-23T10:16:30.000Z",
             expert: "therapist",
             title: "weekly appointment",
+            room: "101",
         };
         Meeting.findOne.mockResolvedValue(mockData);
         await createMeeting(req, res);
         expect(res.status).toHaveBeenCalledWith(400);
-        expect(res.json).toHaveBeenCalledWith({message: "slot already been taken"});
+        expect(res.json).toHaveBeenCalledWith({message: "slot already been taken", status: "failed"});
     });
     // it("should return status code 200 if a meeting is booked successfully with no errors", async () => {
     //     const req = {

@@ -35,8 +35,9 @@ describe("getExperts", () => {
                 },
             },
         ];
-        User.find.mockResolvedValue(mockUsers);
-
+        User.find.mockReturnValue({
+            select: jest.fn().mockResolvedValue(mockUsers),
+        });
         const req = {};
         const res = {json: jest.fn()};
 
@@ -121,9 +122,12 @@ describe("getExperts", () => {
                 },
             },
         ];
-        User.find.mockResolvedValue(
-            mockUsers.filter((user) => ["coach", "therapist", "nutritionist"].includes(user.type))
-        );
+
+        User.find.mockReturnValue({
+            select: jest
+            .fn()
+            .mockResolvedValue(mockUsers.filter((user) => ["coach", "therapist", "nutritionist"].includes(user.type))),
+        });
         const req = {};
         const res = {json: jest.fn()};
 

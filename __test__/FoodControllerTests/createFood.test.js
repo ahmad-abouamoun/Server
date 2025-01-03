@@ -22,7 +22,7 @@ describe("create food", () => {
         };
         Food.prototype.save.mockRejectedValue(new Error("Database error"));
         await createFood(req, res);
-        expect(res.json).toHaveBeenCalledWith({message: "Internal Server Error while creating the food"});
+        expect(res.json).toHaveBeenCalledWith({message: "Database error"});
         expect(res.status).toHaveBeenCalledWith(500);
     });
     it("should return status code 201 if no error occured ", async () => {

@@ -6,7 +6,7 @@ import {Meeting} from "../Models/meeting.js";
 export const createMeeting = async (req, res) => {
     const {token, title, startDate, endDate, expert, room} = req.body;
     if (!token || !title || !startDate || !endDate || !room) {
-        return res.status(400).json({message: "all fields should be provided"});
+        return res.status(400).json({message: "all fields should be provided", status: "failed"});
     }
     try {
         const checkTime = await Meeting.findOne({startDate, endDate, expert});
@@ -23,9 +23,9 @@ export const createMeeting = async (req, res) => {
             room,
         });
         await meeting.save();
-        return res.status(200).json(meeting);
+        return res.status(200).json({meeting, status: "success"});
     } catch (error) {
-        return res.status(500).json({message: error.message});
+        return res.status(500).json({message: error.message, status: "failed"});
     }
 };
 

@@ -1,16 +1,16 @@
 import {updateUser} from "../../Controller/userController.js";
 import {User} from "../../Models/user.js";
-
+import jwt from "jsonwebtoken";
+import {secretKey} from "../../Controller/userController.js";
 jest.mock("../../Models/user.js");
 
 describe("update User", () => {
     const req = {
         body: {
             name: "John",
-
+            token: jwt.sign({id: 1}, "HALA MADRID"),
             diseases: '{"diabetes": true, "highCholesterol": true, "hypertension": true}',
         },
-        params: {id: 1},
     };
     const res = {status: jest.fn().mockReturnThis(), json: jest.fn()};
 
@@ -51,6 +51,6 @@ describe("update User", () => {
         User.findByIdAndUpdate.mockRejectedValue(null);
         await updateUser(req, res);
         expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalledWith({message: "Something went wrong"});
+        expect(res.json).toHaveBeenCalledWith({message: "error.message"});
     });
 });
