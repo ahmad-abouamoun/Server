@@ -11,9 +11,9 @@ const storage = multer.diskStorage({
         cb(null, "Images/foodImages");
     },
     filename: (req, file, cb) => {
-        const name = req.body.name;
+        const timestamp = Date.now();
         const fileExtension = file.originalname.split(".").pop();
-        cb(null, `${name}.${fileExtension}`);
+        cb(null, `${timestamp}.${fileExtension}`);
     },
 });
 const upload = multer({storage});

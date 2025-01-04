@@ -39,7 +39,6 @@ describe("createUser", () => {
         expect(User.prototype.save).toHaveBeenCalled();
 
         expect(res.status).toHaveBeenCalledWith(200);
-        expect(res.json).toHaveBeenCalledWith();
     });
 
     it("should give status code 400 if any field is missing", async () => {
@@ -51,7 +50,7 @@ describe("createUser", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "All fields are required."});
     });
-    it("should return 400 if the email is already registered", async () => {
+    it("should return 401 if the email is already registered", async () => {
         const req = {
             body: {
                 name: "John Doe",
@@ -67,11 +66,11 @@ describe("createUser", () => {
         await createUser(req, res);
         expect(User.findOne).toHaveBeenCalledWith({email: "john@example.com"});
 
-        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.status).toHaveBeenCalledWith(401);
 
         expect(res.json).toHaveBeenCalledWith({message: "Email already registered."});
     });
-    it("should return 400 if there is an error saving the user", async () => {
+    it("should return 500 if there is an error saving the user", async () => {
         const req = {
             body: {
                 name: "John Doe",
@@ -89,7 +88,7 @@ describe("createUser", () => {
         User.prototype.save.mockRejectedValue(new Error("Database Error"));
 
         await createUser(req, res);
-        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({message: "error occured with the Db."});
     });
 });

@@ -37,7 +37,7 @@ export const Signin = async (req, res) => {
             if (result) {
                 const token = jwt.sign({id: user._id, type}, secretKey);
                 res.status(200).json({
-                    message: "User indeed exists.",
+                    data: user,
                     token,
                 });
             } else {
@@ -55,16 +55,16 @@ export const Signin = async (req, res) => {
 
 //creates a user and saves its image using the multer library
 export const createUser = async (req, res) => {
-    const {name, email, password, type} = req.body;
+    const {name, email, password} = req.body;
 
     const diseases = JSON.parse(req.body.diseases);
-    if (!name || !email || !password || !type || !diseases) {
+    if (!name || !email || !password || !diseases) {
         return res.status(400).json({message: "All fields are required."});
     }
     try {
         const existingUser = await User.findOne({email});
         if (existingUser) {
-            return res.status(400).json({message: "Email already registered."});
+            return res.status(401).json({message: "Email already registered."});
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({
@@ -72,15 +72,16 @@ export const createUser = async (req, res) => {
             email,
             password: hashedPassword,
             banned: false,
-            type,
+            type: "user",
             filename: req.file.filename,
             diseases,
         });
-
         await newUser.save();
-        return res.status(200).json();
-    } catch {
-        res.status(400).json({
+        const token = jwt.sign({id: newUser._id, type: "user"}, secretKey);
+        return res.status(200).json({data: newUser, token});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
             message: "error occured with the Db.",
         });
     }
