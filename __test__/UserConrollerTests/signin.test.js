@@ -81,7 +81,7 @@ describe("signin", () => {
         expect(bcrypt.compare).toHaveBeenCalledWith(req.body.password, mockuser.password, expect.any(Function));
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({
-            message: "User indeed exists.",
+            data: mockuser,
             token: mockToken,
         });
     });
