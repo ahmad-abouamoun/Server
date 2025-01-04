@@ -31,7 +31,7 @@ describe("signin", () => {
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({message: "error occured with the Db."});
     });
-    it("should return status code 400 if user is banned", async () => {
+    it("should return status code 401 if user is banned", async () => {
         const mockUser = {
             _id: "1",
             email: "john@example.com",
@@ -43,7 +43,7 @@ describe("signin", () => {
             callback(null, true);
         });
         await Signin(req, res);
-        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.status).toHaveBeenCalledWith(401);
         expect(res.json).toHaveBeenCalledWith({message: "user has been banned"});
     });
     it("should return status code 400 if incorrect password was given", async () => {
