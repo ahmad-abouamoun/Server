@@ -5,6 +5,29 @@ import mongoose, {Mongoose} from "mongoose";
 
 export const secretKey = "HALA MADRID";
 
+export const getUser = async (req, res) => {
+    const {token} = req.headers;
+    let decode;
+    let id;
+    try {
+        decode = jwt.verify(token, secretKey);
+        id = decode.id;
+    } catch (error) {
+        return res.status(400).json({message: "error with jwt token"});
+    }
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(401).json({message: "user not found"});
+        }
+        return res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({
+            message: "error occured with the Db.",
+        });
+    }
+};
+
 //gets the user type users
 export const getUsers = async (req, res) => {
     const users = await User.find({type: "user"}).select("name email banned");
@@ -122,7 +145,7 @@ export const updateUser = async (req, res) => {
             });
         }
         await updatedUser.save();
-        return res.status(200).json({message: "user was updated"});
+        return res.status(200).json(updatedUser);
     } catch (error) {
         return res.status(500).json({
             message: "error.message",

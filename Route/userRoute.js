@@ -7,6 +7,7 @@ import {
     getExperts,
     getFavFoods,
     getFavPrograms,
+    getUser,
     getUsers,
     removeFavFood,
     removeFavProgram,
@@ -29,6 +30,8 @@ const storage = multer.diskStorage({
     },
 });
 const upload = multer({storage});
+//gets data of a single user
+router.get("/getUser", getUser);
 //gets users with type:users
 router.get("/", getUsers);
 
