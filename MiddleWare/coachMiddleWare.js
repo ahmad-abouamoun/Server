@@ -8,6 +8,7 @@ export const coachMiddleWare = (req, res, next) => {
     }
     try {
         const decode = jwt.verify(token, secretKey);
+        console.log(decode.type);
         if (decode.type === "coach") {
             next();
         } else {

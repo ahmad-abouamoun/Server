@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 //route for creating food
-router.post("/", upload.single("filename"), createFood);
+router.post("/", upload.single("filename"), nutritionistMiddleWare, createFood);
 
 //route for getting all foods
 router.get("/", getFoods);

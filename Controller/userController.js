@@ -44,7 +44,7 @@ export const getExperts = async (req, res) => {
 
 //allows the user to signin to the website
 export const Signin = async (req, res) => {
-    const {email, password, type} = req.body;
+    const {email, password} = req.body;
     try {
         const user = await User.findOne({email: email});
         if (!user) {
@@ -58,7 +58,9 @@ export const Signin = async (req, res) => {
                 return;
             }
             if (result) {
-                const token = jwt.sign({id: user._id, type}, secretKey);
+                const token = jwt.sign({id: user._id, type: user.type}, secretKey);
+                const decode = jwt.verify(token, secretKey);
+                console.log(decode.type);
                 res.status(200).json({
                     data: user,
                     token,
@@ -78,7 +80,7 @@ export const Signin = async (req, res) => {
 
 //creates a user and saves its image using the multer library
 export const createUser = async (req, res) => {
-    const {name, email, password} = req.body;
+    const {name, email, password, type} = req.body;
 
     const diseases = JSON.parse(req.body.diseases);
     if (!name || !email || !password || !diseases) {
@@ -95,7 +97,7 @@ export const createUser = async (req, res) => {
             email,
             password: hashedPassword,
             banned: false,
-            type: "user",
+            type: type || "user",
             filename: req.file.filename,
             diseases,
         });
@@ -209,7 +211,7 @@ export const removeFavProgram = async (req, res) => {
 };
 
 export const getFavPrograms = async (req, res) => {
-    const {token} = req.body;
+    const {token} = req.headers;
     const decode = jwt.verify(token, secretKey);
     const id = decode.id;
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -285,7 +287,7 @@ export const removeFavFood = async (req, res) => {
 };
 
 export const getFavFoods = async (req, res) => {
-    const {token} = req.body;
+    const {token} = req.headers;
     const decode = jwt.verify(token, secretKey);
     const id = decode.id;
     if (!mongoose.Types.ObjectId.isValid(id)) {
