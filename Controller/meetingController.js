@@ -31,7 +31,7 @@ export const createMeeting = async (req, res) => {
 
 //used to get meetings that are related to the user depending on the type
 export const getMeetings = async (req, res) => {
-    const {token} = req.body;
+    const {token} = req.headers;
     if (!token) {
         return res.status(400).json({message: "token was not provided"});
     }
