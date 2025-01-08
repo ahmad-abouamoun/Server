@@ -56,4 +56,14 @@ describe("add favorite program", () => {
             message: "program already favorited",
         });
     });
+    it("should return status code 200 incase no error occured", async () => {
+        const mockData = {
+            favPrograms: [],
+            save: jest.fn(),
+        };
+        User.findById.mockResolvedValue(mockData);
+        await addFavProgram(req, res);
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({message: "user favProgram was updated"});
+    });
 });
