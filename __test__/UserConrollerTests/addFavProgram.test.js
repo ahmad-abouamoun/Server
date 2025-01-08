@@ -45,4 +45,15 @@ describe("add favorite program", () => {
             message: "User Not Found",
         });
     });
+    it("should return status code 401 incase program already favorted", async () => {
+        const mockData = {
+            favPrograms: [req.body.programId],
+        };
+        User.findById.mockResolvedValue(mockData);
+        await addFavProgram(req, res);
+        expect(res.status).toHaveBeenCalledWith(401);
+        expect(res.json).toHaveBeenCalledWith({
+            message: "program already favorited",
+        });
+    });
 });
