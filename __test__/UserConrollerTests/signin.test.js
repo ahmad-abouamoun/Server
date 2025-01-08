@@ -66,7 +66,7 @@ describe("signin", () => {
             email: "john@example.com",
             password: "hashedPassword123",
             banned: false,
-            type: "user",
+            type: "coach",
         };
         User.findOne.mockResolvedValue(mockuser);
         bcrypt.compare.mockImplementation((password, hashedpassword, callback) => {

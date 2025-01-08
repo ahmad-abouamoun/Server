@@ -11,13 +11,13 @@ describe("get meetings", () => {
     const res = {status: jest.fn().mockReturnThis(), json: jest.fn()};
 
     it("should return 400 if token does not exist", async () => {
-        const req = {body: {token: ""}};
+        const req = {headers: {token: ""}};
         await getMeetings(req, res);
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "token was not provided"});
     });
     it("should return 400 if token was not valid", async () => {
-        const req = {body: {token: "mockToken"}};
+        const req = {headers: {token: "mockToken"}};
         jwt.verify = jest.fn().mockImplementation(() => {
             throw new Error("invalid token");
         });
@@ -27,7 +27,7 @@ describe("get meetings", () => {
         expect(res.json).toHaveBeenCalledWith({message: "an error has occured"});
     });
     it("should return 400 if error in db occured", async () => {
-        const req = {body: {token: mockToken}};
+        const req = {headers: {token: mockToken}};
         Meeting.find.mockRejectedValue(new Error("error occured in Db"));
         await getMeetings(req, res);
 
@@ -35,7 +35,7 @@ describe("get meetings", () => {
         expect(res.json).toHaveBeenCalledWith({message: "an error has occured"});
     });
     it("should return status code 200 if meetings were fetched successfully with no errors", async () => {
-        const req = {body: {token: mockToken}};
+        const req = {headers: {token: mockToken}};
 
         const mockData = [
             {

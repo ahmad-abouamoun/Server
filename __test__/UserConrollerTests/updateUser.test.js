@@ -8,7 +8,7 @@ describe("update User", () => {
     const req = {
         body: {
             name: "John",
-            token: jwt.sign({id: 1}, "HALA MADRID"),
+            token: jwt.sign({id: 1}, secretKey),
             diseases: '{"diabetes": true, "highCholesterol": true, "hypertension": true}',
         },
     };
@@ -39,7 +39,7 @@ describe("update User", () => {
             {new: true}
         );
         expect(res.status).toHaveBeenCalledWith(200);
-        expect(res.json).toHaveBeenCalledWith({message: "user was updated"});
+        expect(res.json).toHaveBeenCalledWith(mockUser);
     });
     it("should return status code 404 if user not found", async () => {
         User.findByIdAndUpdate.mockResolvedValue(null);
