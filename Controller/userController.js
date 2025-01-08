@@ -170,7 +170,7 @@ export const addFavProgram = async (req, res) => {
             });
         }
         if (user.favPrograms.includes(programId)) {
-            return res.status(400).json({message: "program already favorited"});
+            return res.status(401).json({message: "program already favorited"});
         }
         user.favPrograms.push(new mongoose.Types.ObjectId(programId));
         await user.save();

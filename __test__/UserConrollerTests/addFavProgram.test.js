@@ -24,4 +24,17 @@ describe("add favorite program", () => {
             message: "Something went wrong",
         });
     });
+    it("should return status code 400 incase id or program are not provided", async () => {
+        const req = {
+            body: {
+                programId: "",
+                token: jwt.sign({id: 1}, secretKey),
+            },
+        };
+
+        User.findById.mockRejectedValue(null);
+        await addFavProgram(req, res);
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({message: "id or program id is not defined"});
+    });
 });
