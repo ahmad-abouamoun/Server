@@ -60,7 +60,6 @@ export const Signin = async (req, res) => {
             if (result) {
                 const token = jwt.sign({id: user._id, type: user.type}, secretKey);
                 const decode = jwt.verify(token, secretKey);
-                console.log(decode.type);
                 res.status(200).json({
                     data: user,
                     token,
@@ -105,7 +104,6 @@ export const createUser = async (req, res) => {
         const token = jwt.sign({id: newUser._id, type: "user"}, secretKey);
         return res.status(200).json({data: newUser, token});
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             message: "error occured with the Db.",
         });
@@ -158,10 +156,11 @@ export const updateUser = async (req, res) => {
 export const addFavProgram = async (req, res) => {
     const {programId, token} = req.body;
     const decode = jwt.verify(token, secretKey);
+
     const id = decode.id;
 
-    if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(programId)) {
-        return res.status(400).json({message: "id or program id is not of type obj id"});
+    if (!id || !programId) {
+        return res.status(400).json({message: "id or program id is not defined"});
     }
     try {
         const user = await User.findById(id);
