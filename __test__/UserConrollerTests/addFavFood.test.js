@@ -34,4 +34,12 @@ describe("add favorite food", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "id or food id is not provided"});
     });
+    it("should return status code 404 incase user does not exist", async () => {
+        User.findById.mockResolvedValue(null);
+        await addFavFood(req, res);
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalledWith({
+            message: "User Not Found",
+        });
+    });
 });
