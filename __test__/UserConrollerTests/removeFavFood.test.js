@@ -23,10 +23,10 @@ describe("remove favorite food", () => {
             message: "Something went wrong",
         });
     });
-    it("should return status code 400 incase id or program are not provided", async () => {
+    it("should return status code 400 incase id or Food are not provided", async () => {
         const req = {
             body: {
-                programId: "",
+                FoodId: "",
                 token: jwt.sign({id: 1}, secretKey),
             },
         };
@@ -35,5 +35,13 @@ describe("remove favorite food", () => {
         await removeFavFood(req, res);
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "id or food id is not defined"});
+    });
+    it("should return status code 404 incase user does not exist", async () => {
+        User.findById.mockResolvedValue(null);
+        await removeFavFood(req, res);
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalledWith({
+            message: "User Not Found",
+        });
     });
 });
