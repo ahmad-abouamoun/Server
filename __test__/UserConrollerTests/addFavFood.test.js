@@ -23,4 +23,15 @@ describe("add favorite food", () => {
             message: "Something went wrong",
         });
     });
+    it("should return status code 400 incase id or food id are not provided", async () => {
+        const req = {
+            body: {
+                FoodId: "",
+                token: jwt.sign({id: 1}, secretKey),
+            },
+        };
+        await addFavFood(req, res);
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({message: "id or food id is not provided"});
+    });
 });
