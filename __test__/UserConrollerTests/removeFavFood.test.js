@@ -44,4 +44,15 @@ describe("remove favorite food", () => {
             message: "User Not Found",
         });
     });
+    it("should return status code 401 incase food is not favorited", async () => {
+        const mockData = {
+            favFoods: [],
+        };
+        User.findById.mockResolvedValue(mockData);
+        await removeFavFood(req, res);
+        expect(res.status).toHaveBeenCalledWith(401);
+        expect(res.json).toHaveBeenCalledWith({
+            message: "Food does not exist",
+        });
+    });
 });
