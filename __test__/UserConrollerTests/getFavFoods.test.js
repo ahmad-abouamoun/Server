@@ -12,6 +12,7 @@ describe("get favorite foods", () => {
             token: jwt.sign({id: 1}, secretKey),
         },
     };
+    const mockData = [{id: "1", name: "food1"}];
     const res = {status: jest.fn().mockReturnThis(), json: jest.fn()};
     it("should return status code 404 incase user does not exist", async () => {
         User.findById = jest.fn().mockReturnValue({
@@ -22,5 +23,17 @@ describe("get favorite foods", () => {
         expect(res.json).toHaveBeenCalledWith({
             message: "User Not Found",
         });
+    });
+
+    it("should return status code 200 incase no error occured", async () => {
+        User.findById = jest.fn().mockReturnValue({
+            populate: jest.fn().mockResolvedValue({
+                _id: "1",
+                favFoods: mockData,
+            }),
+        });
+        await getFavFoods(req, res);
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith(mockData);
     });
 });
