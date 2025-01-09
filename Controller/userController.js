@@ -186,8 +186,8 @@ export const removeFavProgram = async (req, res) => {
     const {programId, token} = req.body;
     const decode = jwt.verify(token, secretKey);
     const id = decode.id;
-    if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(programId)) {
-        return res.status(400).json({message: "id or program id is not of type obj id"});
+    if (!id || !programId) {
+        return res.status(400).json({message: "id or program id is not defined"});
     }
     try {
         const user = await User.findById(id);
@@ -197,7 +197,7 @@ export const removeFavProgram = async (req, res) => {
             });
         }
         if (!user.favPrograms.some((fav) => fav.toString() === programId)) {
-            return res.status(400).json({message: "program does not exist"});
+            return res.status(401).json({message: "program does not exist"});
         }
         user.favPrograms = user.favPrograms.filter((fav) => fav.toString() !== programId);
         await user.save();
@@ -213,8 +213,8 @@ export const getFavPrograms = async (req, res) => {
     const {token} = req.headers;
     const decode = jwt.verify(token, secretKey);
     const id = decode.id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({message: "id is not of type obj id"});
+    if (!id) {
+        return res.status(400).json({message: "id is not defined"});
     }
     try {
         const user = await User.findById(id).populate("favPrograms");
@@ -235,7 +235,7 @@ export const addFavFood = async (req, res) => {
     const {FoodId, token} = req.body;
     const decode = jwt.verify(token, secretKey);
     const id = decode.id;
-    if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(FoodId)) {
+    if (!id || !FoodId) {
         return res.status(400).json({message: "id or food id is not of type obj id"});
     }
     try {
@@ -262,7 +262,7 @@ export const removeFavFood = async (req, res) => {
     const {FoodId, token} = req.body;
     const decode = jwt.verify(token, secretKey);
     const id = decode.id;
-    if (!mongoose.Types.ObjectId.isValid(id) || !mongoose.Types.ObjectId.isValid(FoodId)) {
+    if (!id || !FoodId) {
         return res.status(400).json({message: "id or Food id is not of type obj id"});
     }
     try {
@@ -289,7 +289,7 @@ export const getFavFoods = async (req, res) => {
     const {token} = req.headers;
     const decode = jwt.verify(token, secretKey);
     const id = decode.id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!id) {
         return res.status(400).json({message: "id is not of type obj id"});
     }
     try {

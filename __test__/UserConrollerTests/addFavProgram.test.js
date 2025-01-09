@@ -3,7 +3,6 @@ import {addFavProgram} from "../../Controller/userController.js";
 import {secretKey} from "../../Controller/userController.js";
 
 import {User} from "../../Models/user.js";
-import bcrypt from "bcryptjs";
 
 jest.mock("../../Models/user");
 
