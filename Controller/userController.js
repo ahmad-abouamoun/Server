@@ -238,7 +238,7 @@ export const addFavFood = async (req, res) => {
     const decode = jwt.verify(token, secretKey);
     const id = decode.id;
     if (!id || !FoodId) {
-        return res.status(400).json({message: "id or food id is not of type obj id"});
+        return res.status(400).json({message: "id or food id is not provided"});
     }
     try {
         const user = await User.findById(id);
@@ -248,12 +248,13 @@ export const addFavFood = async (req, res) => {
             });
         }
         if (user.favFoods.includes(FoodId)) {
-            return res.status(400).json({message: "food already favorited"});
+            return res.status(401).json({message: "food already favorited"});
         }
         user.favFoods.push(new mongoose.Types.ObjectId(FoodId));
         await user.save();
         return res.status(200).json({message: "user favFood was updated"});
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
             message: "Something went wrong",
         });
