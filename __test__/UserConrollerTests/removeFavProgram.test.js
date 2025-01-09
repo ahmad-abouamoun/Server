@@ -53,4 +53,14 @@ describe("remove favorite program", () => {
             message: "program does not exist",
         });
     });
+    it("should return status code 200 incase no error occured", async () => {
+        const mockData = {
+            favPrograms: ["1"],
+            save: jest.fn(),
+        };
+        User.findById.mockResolvedValue(mockData);
+        await removeFavProgram(req, res);
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({message: "user favProgram was updated"});
+    });
 });
