@@ -25,7 +25,7 @@ describe("get favorite programs", () => {
         });
     });
 
-    it("should return status code 404 incase user does not exist", async () => {
+    it("should return status code 200 incase no error occured", async () => {
         const mockData = [{id: "1", name: "program1"}];
         User.findById = jest.fn().mockReturnValue({
             populate: jest.fn().mockResolvedValue({
@@ -36,5 +36,20 @@ describe("get favorite programs", () => {
         await getFavPrograms(req, res);
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith(mockData);
+    });
+    it("should return status code 500 incase of error in DB", async () => {
+        const mockData = [{id: "1", name: "program1"}];
+
+        User.findById.mockReturnValue({
+            populate: jest.fn().mockRejectedValue({
+                _id: "1",
+                favPrograms: mockData,
+            }),
+        });
+        await getFavPrograms(req, res);
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.json).toHaveBeenCalledWith({
+            message: "Something went wrong",
+        });
     });
 });
