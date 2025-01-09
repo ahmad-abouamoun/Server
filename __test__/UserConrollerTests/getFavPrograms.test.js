@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import {getFavPrograms, removeFavProgram} from "../../Controller/userController.js";
+import {getFavPrograms} from "../../Controller/userController.js";
 import {secretKey} from "../../Controller/userController.js";
 
 import {User} from "../../Models/user.js";
