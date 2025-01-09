@@ -42,4 +42,15 @@ describe("add favorite food", () => {
             message: "User Not Found",
         });
     });
+    it("should return status code 401 incase food already favorited", async () => {
+        const mockData = {
+            favFoods: [req.body.FoodId],
+        };
+        User.findById.mockResolvedValue(mockData);
+        await addFavFood(req, res);
+        expect(res.status).toHaveBeenCalledWith(401);
+        expect(res.json).toHaveBeenCalledWith({
+            message: "food already favorited",
+        });
+    });
 });
