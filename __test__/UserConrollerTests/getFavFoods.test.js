@@ -36,4 +36,17 @@ describe("get favorite foods", () => {
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith(mockData);
     });
+    it("should return status code 500 incase of error ", async () => {
+        User.findById.mockReturnValue({
+            populate: jest.fn().mockRejectedValue({
+                _id: "1",
+                favFoods: mockData,
+            }),
+        });
+        await getFavFoods(req, res);
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.json).toHaveBeenCalledWith({
+            message: "Something went wrong",
+        });
+    });
 });
