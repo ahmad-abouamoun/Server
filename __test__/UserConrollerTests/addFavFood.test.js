@@ -42,7 +42,7 @@ describe("add favorite food", () => {
             message: "User Not Found",
         });
     });
-    it("should return status code 401 incase food already favorited", async () => {
+    it("should return status code 401 incase food already favorted", async () => {
         const mockData = {
             favFoods: [req.body.FoodId],
         };
@@ -52,5 +52,15 @@ describe("add favorite food", () => {
         expect(res.json).toHaveBeenCalledWith({
             message: "food already favorited",
         });
+    });
+    it("should return status code 200 incase no error occured", async () => {
+        const mockData = {
+            favFoods: [],
+            save: jest.fn(),
+        };
+        User.findById.mockResolvedValue(mockData);
+        await addFavFood(req, res);
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({message: "user favFood was updated"});
     });
 });
