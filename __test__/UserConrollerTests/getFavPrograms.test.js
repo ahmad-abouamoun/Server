@@ -24,4 +24,17 @@ describe("get favorite programs", () => {
             message: "User Not Found",
         });
     });
+
+    it("should return status code 404 incase user does not exist", async () => {
+        const mockData = [{id: "1", name: "program1"}];
+        User.findById = jest.fn().mockReturnValue({
+            populate: jest.fn().mockResolvedValue({
+                _id: "1",
+                favPrograms: mockData,
+            }),
+        });
+        await getFavPrograms(req, res);
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith(mockData);
+    });
 });
