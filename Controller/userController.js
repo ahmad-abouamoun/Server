@@ -211,6 +211,7 @@ export const removeFavProgram = async (req, res) => {
 
 export const getFavPrograms = async (req, res) => {
     const {token} = req.headers;
+
     const decode = jwt.verify(token, secretKey);
     const id = decode.id;
     if (!id) {
@@ -225,6 +226,7 @@ export const getFavPrograms = async (req, res) => {
         }
         return res.status(200).json(user.favPrograms);
     } catch (error) {
+        console.log("error", error);
         return res.status(500).json({
             message: "Something went wrong",
         });
