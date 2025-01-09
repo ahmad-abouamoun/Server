@@ -55,4 +55,14 @@ describe("remove favorite food", () => {
             message: "Food does not exist",
         });
     });
+    it("should return status code 200 incase no error occured", async () => {
+        const mockData = {
+            favFoods: ["507f191e810c19729de860ec"],
+            save: jest.fn(),
+        };
+        User.findById.mockResolvedValue(mockData);
+        await removeFavFood(req, res);
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({message: "user favFood was updated"});
+    });
 });
