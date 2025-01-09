@@ -34,4 +34,12 @@ describe("remove favorite program", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "id or program id is not defined"});
     });
+    it("should return status code 404 incase user does not exist", async () => {
+        User.findById.mockResolvedValue(null);
+        await addFavProgram(req, res);
+        expect(res.status).toHaveBeenCalledWith(404);
+        expect(res.json).toHaveBeenCalledWith({
+            message: "User Not Found",
+        });
+    });
 });
