@@ -265,7 +265,7 @@ export const removeFavFood = async (req, res) => {
     const decode = jwt.verify(token, secretKey);
     const id = decode.id;
     if (!id || !FoodId) {
-        return res.status(400).json({message: "id or Food id is not of type obj id"});
+        return res.status(400).json({message: "id or food id is not defined"});
     }
     try {
         const user = await User.findById(id);
@@ -275,7 +275,7 @@ export const removeFavFood = async (req, res) => {
             });
         }
         if (!user.favFoods.some((fav) => fav.toString() === FoodId)) {
-            return res.status(400).json({message: "Food does not exist"});
+            return res.status(401).json({message: "Food does not exist"});
         }
         user.favFoods = user.favFoods.filter((fav) => fav.toString() !== FoodId);
         await user.save();
