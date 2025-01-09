@@ -292,7 +292,7 @@ export const getFavFoods = async (req, res) => {
     const decode = jwt.verify(token, secretKey);
     const id = decode.id;
     if (!id) {
-        return res.status(400).json({message: "id is not of type obj id"});
+        return res.status(400).json({message: "id is not defined"});
     }
     try {
         const user = await User.findById(id).populate("favFoods");
