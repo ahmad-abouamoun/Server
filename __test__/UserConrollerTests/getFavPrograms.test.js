@@ -52,4 +52,12 @@ describe("get favorite programs", () => {
             message: "Something went wrong",
         });
     });
+    it("should return status code 400 incase id is not defined", async () => {
+        const req = {headers: {token: jwt.sign({id: ""}, secretKey)}};
+        await getFavPrograms(req, res);
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({
+            message: "id is not defined",
+        });
+    });
 });
