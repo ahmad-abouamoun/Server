@@ -3,6 +3,8 @@ import connectToDatabase from "./connect.js";
 import userRoute from "./Route/userRoute.js";
 import foodRoute from "./Route/foodRoute.js";
 import meetingRoute from "./Route/meetingRoute.js";
+import apiRoute from "./Route/apiRoute.js";
+
 import cors from "cors";
 import {Server} from "socket.io";
 
@@ -17,6 +19,7 @@ app.use("/users", userRoute);
 app.use("/food", foodRoute);
 app.use("/meetings", meetingRoute);
 app.use("/programs", programsRoute);
+app.use("/api", apiRoute);
 
 const io = new Server(8000, {
     cors: {
