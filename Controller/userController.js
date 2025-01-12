@@ -1,9 +1,11 @@
 import {User} from "../Models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 import mongoose, {Mongoose} from "mongoose";
 
-export const secretKey = "HALA MADRID";
+dotenv.config();
+export const secretKey = process.env.secretKey;
 
 export const getUser = async (req, res) => {
     const {token} = req.headers;
@@ -226,7 +228,6 @@ export const getFavPrograms = async (req, res) => {
         }
         return res.status(200).json(user.favPrograms);
     } catch (error) {
-        console.log("error", error);
         return res.status(500).json({
             message: "Something went wrong",
         });
