@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
 import {addFavProgram} from "../../Controller/userController.js";
-import {secretKey} from "../../Controller/userController.js";
 
 import {User} from "../../Models/user.js";
 
 jest.mock("../../Models/user");
 
 describe("add favorite program", () => {
+    const secretKey = process.env.secretKey;
     const req = {
         body: {
             programId: "1",

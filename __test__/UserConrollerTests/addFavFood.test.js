@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
 import {addFavFood} from "../../Controller/userController.js";
-import {secretKey} from "../../Controller/userController.js";
 
 import {User} from "../../Models/user.js";
 
 jest.mock("../../Models/user");
 
 describe("add favorite food", () => {
+    const secretKey = process.env.secretKey;
     const req = {
         body: {
             FoodId: "507f191e810c19729de860ec",

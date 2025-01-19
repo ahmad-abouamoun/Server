@@ -60,29 +60,29 @@ describe("signin", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "error with authenticating."});
     });
-    // it("should return status code 200 if no errors occured", async () => {
-    //     const mockuser = {
-    //         _id: "1",
-    //         email: "john@example.com",
-    //         password: "hashedPassword123",
-    //         banned: false,
-    //         type: "coach",
-    //     };
-    //     User.findOne.mockResolvedValue(mockuser);
-    //     bcrypt.compare.mockImplementation((password, hashedpassword, callback) => {
-    //         callback(null, true);
-    //     });
-    //     const mockToken = "mocktoken";
-    //     jwt.sign.mockReturnValue(mockToken);
+    it("should return status code 200 if no errors occured", async () => {
+        const mockuser = {
+            _id: "1",
+            email: "john@example.com",
+            password: "hashedPassword123",
+            banned: false,
+            type: "coach",
+        };
+        User.findOne.mockResolvedValue(mockuser);
+        bcrypt.compare.mockImplementation((password, hashedpassword, callback) => {
+            callback(null, true);
+        });
+        const mockToken = "mocktoken";
+        jwt.sign.mockReturnValue(mockToken);
 
-    //     await Signin(req, res);
+        await Signin(req, res);
 
-    //     expect(User.findOne).toHaveBeenCalledWith({email: "john@example.com"});
-    //     expect(bcrypt.compare).toHaveBeenCalledWith(req.body.password, mockuser.password, expect.any(Function));
-    //     expect(res.status).toHaveBeenCalledWith(200);
-    //     expect(res.json).toHaveBeenCalledWith({
-    //         data: mockuser,
-    //         token: mockToken,
-    //     });
-    // });
+        expect(User.findOne).toHaveBeenCalledWith({email: "john@example.com"});
+        expect(bcrypt.compare).toHaveBeenCalledWith(req.body.password, mockuser.password, expect.any(Function));
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({
+            data: mockuser,
+            token: mockToken,
+        });
+    });
 });
