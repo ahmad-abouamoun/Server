@@ -9,10 +9,6 @@ const programSchema = new Schema({
         type: [String],
         default: [],
     },
-    link: {
-        type: [String],
-        default: [],
-    },
 
     filename: {
         type: String,

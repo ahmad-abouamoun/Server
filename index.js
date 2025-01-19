@@ -55,6 +55,9 @@ io.on("connection", (socket) => {
     socket.on("peer:nego:done", ({to, ans}) => {
         io.to(to).emit("peer:nego:final", {from: socket.id, ans});
     });
+    socket.on("send:message", ({to, message}) => {
+        io.to(to).emit("receive:message", {message});
+    });
 });
 app.listen(8080, async () => {
     console.log("hello world");

@@ -2,15 +2,20 @@ import {Program} from "../Models/programs.js";
 
 //api that creates a program
 export const createProgram = async (req, res) => {
-    const {name} = req.body;
+    const {name, training} = req.body;
     if (!name) {
         return res.status(400).json({message: "name should be provided"});
     }
     try {
+        const trainingArray = training
+            ? training
+              .split(",")
+              .map((item) => item.trim())
+              .filter((item) => item !== "")
+            : [];
         const program = new Program({
             name,
-            training: [],
-            link: [],
+            training: trainingArray,
             filename: req.file.filename,
         });
         await program.save();
