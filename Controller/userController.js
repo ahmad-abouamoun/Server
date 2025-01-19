@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import mongoose, {Mongoose} from "mongoose";
 
 dotenv.config();
-export const secretKey = process.env.secretKey;
+export const secretKey = process.env.SECRET_KEY || "default_test_key";
 
 export const getUser = async (req, res) => {
     const {token} = req.headers;

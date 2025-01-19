@@ -1,10 +1,11 @@
 import {updateUser} from "../../Controller/userController.js";
 import {User} from "../../Models/user.js";
 import jwt from "jsonwebtoken";
+import {secretKey} from "../../Controller/userController.js";
+
 jest.mock("../../Models/user.js");
 
 describe("update User", () => {
-    const secretKey = process.env.secretKey;
     const req = {
         body: {
             name: "John",
