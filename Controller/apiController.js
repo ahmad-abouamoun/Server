@@ -5,7 +5,7 @@ dotenv.config();
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 export const therapistAi = async (req, res) => {
-    const {userMessage} = req.body;
+    const {userMessage, userMessages} = req.body;
 
     try {
         const response = await axios.post(
@@ -13,8 +13,18 @@ export const therapistAi = async (req, res) => {
             {
                 model: "gpt-3.5-turbo",
                 messages: [
-                    {role: "system", content: "You are a kind and helpful therapist."},
-                    {role: "user", content: userMessage},
+                    {
+                        role: "system",
+                        content:
+                            "You are a kind and helpful therapist.the content is an object you only should reply according to the message.contnet[0] and the prevMessages is an array that holds the prev chats with the user just keep them in mind to know what to reply",
+                    },
+                    {
+                        role: "user",
+                        content: [
+                            {type: "text", message: userMessage},
+                            {type: "text", message: userMessages.join(" ")},
+                        ],
+                    },
                 ],
                 temperature: 0.7,
                 max_tokens: 150,
