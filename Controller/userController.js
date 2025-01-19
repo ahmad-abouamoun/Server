@@ -154,6 +154,17 @@ export const updateUser = async (req, res) => {
         });
     }
 };
+export const DeleteUser = async (req, res) => {
+    const id = req.params.id;
+
+    const user = await User.findByIdAndDelete(id);
+    if (!user) {
+        return res.status(404).json({
+            message: "User Not Found",
+        });
+    }
+    return res.status(200).json(user);
+};
 
 export const addFavProgram = async (req, res) => {
     const {programId, token} = req.body;

@@ -4,6 +4,7 @@ import {
     addFavProgram,
     banUser,
     createUser,
+    DeleteUser,
     getExperts,
     getFavFoods,
     getFavPrograms,
@@ -49,6 +50,9 @@ router.put("/:id", adminMiddleWare, banUser);
 
 //allows the user to update its data
 router.patch("/", updateUser);
+
+//allows the admin to delete expert
+router.delete("/:id", adminMiddleWare, DeleteUser);
 
 router.post("/favProgram", addFavProgram);
 
