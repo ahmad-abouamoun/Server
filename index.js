@@ -21,7 +21,7 @@ app.use("/meetings", meetingRoute);
 app.use("/programs", programsRoute);
 app.use("/api", apiRoute);
 
-const io = new Server(8000, {
+const io = new Server(8080, {
     cors: {
         origin: "*",
     },
@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
         io.to(to).emit("receive:message", {message});
     });
 });
-app.listen(8080, async () => {
+app.listen(8000, async () => {
     console.log("hello world");
     await connectToDatabase();
 });
