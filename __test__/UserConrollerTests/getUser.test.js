@@ -34,14 +34,4 @@ describe("get users data", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "error with jwt token"});
     });
-    // it("should return status code 404 incase user does not exist", async () => {
-    //     jwt.verify.mockReturnValue({id: "2"});
-
-    //     User.findById = jest.fn().mockRejectedValue(null);
-    //     await getFavPrograms(req, res);
-    //     expect(res.status).toHaveBeenCalledWith(404);
-    //     expect(res.json).toHaveBeenCalledWith({
-    //         message: "user not found",
-    //     });
-    // });
 });

@@ -57,41 +57,4 @@ describe("create meeting", () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({message: "slot already been taken", status: "failed"});
     });
-    // it("should return status code 200 if a meeting is booked successfully with no errors", async () => {
-    //     const req = {
-    //         body: {
-    //             token: mockToken,
-    //             startDate: "2024-12-23T10:15:30.000Z",
-    //             endDate: "2024-12-23T10:16:30.000Z",
-    //             expert: "therapist",
-    //             title: "mental health",
-    //         },
-    //     };
-    //     jwt.verify.mockReturnValue(decodedToken);
-
-    //     Meeting.findOne.mockResolvedValue(null);
-    //     Meeting.prototype.save.mockResolvedValue({
-    //         startDate: "2024-12-23T10:15:30.000Z",
-    //         endDate: "2024-12-23T10:16:30.000Z",
-    //         expert: "therapist",
-    //         title: "mental health",
-    //         user_id: decodedToken.id,
-    //     });
-
-    //     await createMeeting(req, res);
-    //     expect(Meeting.findOne).toHaveBeenCalledWith({
-    //         expert: req.body.expert,
-    //         endDate: req.body.endDate,
-    //         startDate: req.body.startDate,
-    //     });
-
-    //     expect(res.json).toHaveBeenCalledWith({
-    //         token: mockToken,
-    //         startDate: "2024-12-23T10:15:30.000Z",
-    //         endDate: "2024-12-23T10:16:30.000Z",
-    //         expert: "therapist",
-    //         title: "mental health",
-    //     });
-    //     expect(res.status).toHaveBeenCalledWith(200);
-    // });
 });
