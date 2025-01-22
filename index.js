@@ -60,6 +60,6 @@ io.on("connection", (socket) => {
     });
 });
 app.listen(8000, async () => {
-    console.log("hello world");
+    console.log("hello-world");
     await connectToDatabase();
 });
